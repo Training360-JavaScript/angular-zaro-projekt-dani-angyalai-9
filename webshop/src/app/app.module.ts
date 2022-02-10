@@ -13,6 +13,10 @@ import { EditBillComponent } from './page/edit-bill/edit-bill.component';
 import { EditCategoryComponent } from './page/edit-category/edit-category.component';
 import { EditAddressComponent } from './page/edit-address/edit-address.component';
 import { EditOrderComponent } from './page/edit-order/edit-order.component';
+import { ProductComponent } from './page/product/product.component';
+import { CustomerComponent } from './page/customer/customer.component';
+import { OrderComponent } from './page/order/order.component';
+import { BillComponent } from './page/bill/bill.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,11 @@ import { EditOrderComponent } from './page/edit-order/edit-order.component';
     EditBillComponent,
     EditCategoryComponent,
     EditAddressComponent,
-    EditOrderComponent
+    EditOrderComponent,
+    ProductComponent,
+    CustomerComponent,
+    OrderComponent,
+    BillComponent
   ],
   imports: [
     BrowserModule,
