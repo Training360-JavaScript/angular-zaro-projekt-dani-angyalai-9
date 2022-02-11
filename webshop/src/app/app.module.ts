@@ -22,7 +22,7 @@ import { FormsModule } from '@angular/forms';
     HomeComponent,
     HeaderComponent,
     FilterPipe,
-    SorterPipe
+    SorterPipe,
     ProductComponent,
     CustomerComponent,
     OrderComponent,
