@@ -1,1 +1,39 @@
-<p>product works!</p>
+<div>
+  <button type="button" class="btn btn-success btn-block" [routerLink]="['/', 'edit-product', 0 ]">Add new product</button>
+</div>
+<div class="row">
+  <div class="col-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <td>#</td>
+          <td>Name</td>
+          <td>Type</td>
+          <td>CatId</td>
+          <td>Description</td>
+          <td>Price</td>
+          <td>Featured</td>
+          <td>Active</td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products$ | async">
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.type }}</td>
+          <td>{{ product.catID }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.featured }}</td>
+          <td>{{ product.active }}</td>
+          <td>
+            <button [routerLink]="['/', 'product', 'edit', product.id]" class="btn btn-info">
+              <i class='fa fa-pencil'></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
