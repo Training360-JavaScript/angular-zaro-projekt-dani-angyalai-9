@@ -3,18 +3,66 @@
 </div>
 <div class="row">
   <div class="col-12">
-    <table class="table">
+    <table class="table table-striped">
       <thead>
         <tr>
-          <td>#</td>
-          <td>Name</td>
-          <td>Type</td>
-          <td>CatId</td>
-          <td>Description</td>
-          <td>Price</td>
-          <td>Featured</td>
-          <td>Active</td>
-          <td></td>
+            <th class="extra_thin" (click)="onSort('id')">
+              <div class="th_center">
+                <i *ngIf="sorterKey === 'id' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+                <i *ngIf="sorterKey === 'id' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+                <span>#</span>
+              </div>
+            </th>
+            <th class="thin" (click)="onSort('id')">
+              <div class="th_center">
+                <i *ngIf="sorterKey === 'name' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+                <i *ngIf="sorterKey === 'name' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+                <span>Stock</span>
+              </div>
+            </th>
+            <th class="thin" (click)="onSort('type')">
+              <div class="th_center">
+                <i *ngIf="sorterKey === 'type' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+                <i *ngIf="sorterKey === 'type' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+                <span>Type</span>
+              </div>
+            </th>
+            <th class="thin" (click)="onSort('catID')">
+              <div class="th_center">
+                <i *ngIf="sorterKey === 'catID' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+                <i *ngIf="sorterKey === 'catID' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+                <span>CatID</span>
+              </div>
+            </th>
+            <th class="thin" (click)="onSort('description')">
+              <div class="th_center">
+                <i *ngIf="sorterKey === 'description' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+                <i *ngIf="sorterKey === 'description' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+                <span>Description</span>
+              </div>
+            </th>
+            <th class="thin" (click)="onSort('price')">
+              <div class="th_center">
+                <i *ngIf="sorterKey === 'price' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+                <i *ngIf="sorterKey === 'price' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+                <span>Price</span>
+              </div>
+            </th>
+            <th class="thin" (click)="onSort('featured')">
+              <div class="th_center">
+                <i *ngIf="sorterKey === 'featured' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+                <i *ngIf="sorterKey === 'featured' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+                <span>Featured</span>
+              </div>
+            </th>
+            <th class="thin" (click)="onSort('active')">
+              <div class="th_center">
+                <i *ngIf="sorterKey === 'active' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+                <i *ngIf="sorterKey === 'active' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+                <span>Active</span>
+              </div>
+            </th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
