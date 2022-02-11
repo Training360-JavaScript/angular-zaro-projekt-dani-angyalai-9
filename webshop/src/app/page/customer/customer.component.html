@@ -1,1 +1,35 @@
-<p>customer works!</p>
+<div>
+  <button type="button" class="btn btn-success btn-block" [routerLink]="['/', 'edit-customer', 0 ]">Add new customer</button>
+</div>
+<div class="row">
+  <div class="col-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <td>#</td>
+          <td>Firstname</td>
+          <td>Lastname</td>
+          <td>Email</td>
+          <td>Address</td>
+          <td>Active</td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of customers$ | async">
+          <td>{{ customer.id }}</td>
+          <td>{{ customer.firstName }}</td>
+          <td>{{ customer.lastName }}</td>
+          <td>{{ customer.email }}</td>
+          <td>{{ customer.address }}</td>
+          <td>{{ customer.active }}</td>
+          <td>
+            <button [routerLink]="['/', 'customer', 'edit', customer.id]" class="btn btn-info">
+              <i class='fa fa-pencil'></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
