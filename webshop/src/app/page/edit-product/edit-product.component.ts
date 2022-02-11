@@ -15,7 +15,7 @@ export class EditProductComponent implements OnInit {
   product$: Observable<Product> = this.activatedRoute.params.pipe(
     switchMap( params => {
       let productFromList$: Observable<Product> = 
-      this.productService.get(params['id']);
+      this.productService.getItem(params['id']);
 
       if (params['id'] === '0') {
         this.newProduct$.subscribe();
@@ -45,15 +45,15 @@ export class EditProductComponent implements OnInit {
   onUpdate(productForm: NgForm, product: Product): void {
     if (product.id === 0) {
       this.isNewProduct = true;
-      this.productService.create(product).subscribe(
-        () => this.router.navigate(['/']) //ide majd a product page linkje kell!!!
+      this.productService.createItem(product).subscribe(
+        () => this.router.navigate(['/', 'product'])
         )
       }
       
       if (product.id !== 0 && !this.isNewProduct) {
         this.isNewProduct = false;
-        this.productService.update(product).subscribe(
-          () => this.router.navigate(['/']) //ide majd a product page linkje kell!!!          
+        this.productService.updateItem(product).subscribe(
+          () => this.router.navigate(['/', 'product'])          
       )
     }
 

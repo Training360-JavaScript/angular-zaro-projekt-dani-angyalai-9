@@ -6,7 +6,7 @@
                 <input name="name" id="name" [(ngModel)]="product['name']"
                 type="text" class="form-control" 
                 required pattern="^[A-Za-z]{5,}[ ]?[-]?[ ]?.*$">
-                <div [hidden]="productForm.controls.name.valid" class="error-message">
+                <div [hidden]="productForm.controls['name'].valid" class="error-message">
                     The name of the product must be min. 5 chars.
                 </div>
             </div>
@@ -15,7 +15,7 @@
                 <input name="type" id="type" [(ngModel)]="product['type']" 
                 type="text" class="form-control" 
                 required pattern=".{4,40}">
-                <div [hidden]="productForm.controls.type.valid" class="error-message">
+                <div [hidden]="productForm.controls['type'].valid" class="error-message">
                     The type of the product must be min. 4, max 40 chars.
                 </div>
             </div>
@@ -35,7 +35,7 @@
                     <option value="9">9</option>
                     <option value="10">10</option>
                 </select>
-                <div [hidden]="productForm.controls.catID.valid" class="error-message">
+                <div [hidden]="productForm.controls['catID'].valid" class="error-message">
                     Please, select one option.
                 </div>
             </div>
@@ -43,7 +43,7 @@
                 <label for="description">Description</label>
                 <input name="description" id="description" [(ngModel)]="product['description']" type="textarea" class="form-control"
                     required pattern=".{10,}">
-                <div [hidden]="productForm.controls.description.valid" class="error-message">
+                <div [hidden]="productForm.controls['description'].valid" class="error-message">
                     The description of the product must be min. 10 chars.
                 </div>
             </div>
@@ -52,7 +52,7 @@
                 <input name="price" id="price" [(ngModel)]="product['price']" 
                 type="number" class="form-control" 
                 required pattern="^[0-9]*$">
-                <div [hidden]="productForm.controls.price.valid" class="error-message">
+                <div [hidden]="productForm.controls['price'].valid" class="error-message">
                     Please, use only numbers.
                 </div>
             </div>

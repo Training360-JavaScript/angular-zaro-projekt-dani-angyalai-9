@@ -14,8 +14,16 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
+    path: 'product',
+    component: ProductComponent,
+  },
+  {
     path: 'product/:id',
     component: EditProductComponent,
+  },
+  {
+    path: 'customer',
+    component: CustomerComponent,
   },
   {
     path: 'customer/:id',

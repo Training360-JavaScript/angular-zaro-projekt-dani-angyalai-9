@@ -13,9 +13,10 @@ import { CustomerService } from 'src/app/service/customer.service';
 export class EditCustomerComponent implements OnInit {
 
   customer$: Observable<Customer> = this.activatedRoute.params.pipe(
-    switchMap( params => {
+    switchMap( params => this.customerService.getItem(params['id'])
+      /* {
       let customerFromList$: Observable<Customer> = 
-      this.customerService.get(params['id']);
+      this.customerService.getItem(params['id']);
       
       if (params['id'] === '0') {
         this.newCustomer$.subscribe();
@@ -24,7 +25,8 @@ export class EditCustomerComponent implements OnInit {
 
       customerFromList$.subscribe()
       return customerFromList$
-    })
+    } */
+    )
 
   )
 
@@ -46,18 +48,16 @@ export class EditCustomerComponent implements OnInit {
   onUpdate(customerForm: NgForm, customer: Customer): void {
     if (customer.id === 0) {
       this.isNewCustomer = true;
-      this.customerService.create(customer).subscribe(
-        () => this.router.navigate(['/']) //ide majd a product page linkje kell!!!
+      this.customerService.createItem(customer).subscribe(
+        () => this.router.navigate(['/', 'customer']) 
         )
       }
       
       if (customer.id !== 0 && !this.isNewCustomer) {
         this.isNewCustomer = false;
-        this.customerService.update(customer).subscribe(
-          () => this.router.navigate(['/']) //ide majd a product page linkje kell!!!          
+        this.customerService.updateItem(customer).subscribe(
+          () => this.router.navigate(['/', 'customer'])          
       )
     }
-
-
+  }
 }
-
