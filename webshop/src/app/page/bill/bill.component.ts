@@ -25,7 +25,6 @@ export class BillComponent implements OnInit {
     this.billService.deleteItem(bill.id).subscribe(
       ar => this.router.navigate(['/', 'bill'])
     );
-
   }
 
 }

@@ -21,12 +21,10 @@
           <td>{{ bill.amount }}</td>
           <td>{{ bill.status }}</td>
           <td>
-            <div class="btn-group" role="group" aria-label="Basic example">
               <button [routerLink]="['/', 'edit-bill', bill.id]" type="button" class="btn btn-info"><i class="fa fa-save"
-                  aria-hidden="true">Edit</i></button>
+                  aria-hidden="true"></i></button>
               <button (click)="onDelete(bill)" type="button" class="btn btn-danger"><i class="fa fa-trash"
-                  aria-hidden="true"></i>Delete</button>
-              </div>
+                  aria-hidden="true"></i></button>
           </td>
         </tr>
       </tbody>
