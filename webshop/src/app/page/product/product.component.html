@@ -1,0 +1,90 @@
+<div>
+  <button type="button" class="btn btn-success btn-block" [routerLink]="['/', 'edit-product', 0 ]">Add new product</button>
+</div>
+<div class="row">
+  <div class="col-12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+            <th class="extra_thin" (click)="onSort('id')">
+              <div class="th_center">
+                <i *ngIf="sorterKey === 'id' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+                <i *ngIf="sorterKey === 'id' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+                <span>#</span>
+              </div>
+            </th>
+            <th class="thin" (click)="onSort('id')">
+              <div class="th_center">
+                <i *ngIf="sorterKey === 'name' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+                <i *ngIf="sorterKey === 'name' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+                <span>Stock</span>
+              </div>
+            </th>
+            <th class="thin" (click)="onSort('type')">
+              <div class="th_center">
+                <i *ngIf="sorterKey === 'type' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+                <i *ngIf="sorterKey === 'type' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+                <span>Type</span>
+              </div>
+            </th>
+            <th class="thin" (click)="onSort('catID')">
+              <div class="th_center">
+                <i *ngIf="sorterKey === 'catID' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+                <i *ngIf="sorterKey === 'catID' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+                <span>CatID</span>
+              </div>
+            </th>
+            <th class="thin" (click)="onSort('description')">
+              <div class="th_center">
+                <i *ngIf="sorterKey === 'description' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+                <i *ngIf="sorterKey === 'description' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+                <span>Description</span>
+              </div>
+            </th>
+            <th class="thin" (click)="onSort('price')">
+              <div class="th_center">
+                <i *ngIf="sorterKey === 'price' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+                <i *ngIf="sorterKey === 'price' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+                <span>Price</span>
+              </div>
+            </th>
+            <th class="thin" (click)="onSort('featured')">
+              <div class="th_center">
+                <i *ngIf="sorterKey === 'featured' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+                <i *ngIf="sorterKey === 'featured' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+                <span>Featured</span>
+              </div>
+            </th>
+            <th class="thin" (click)="onSort('active')">
+              <div class="th_center">
+                <i *ngIf="sorterKey === 'active' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+                <i *ngIf="sorterKey === 'active' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+                <span>Active</span>
+              </div>
+            </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products$ | async">
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.type }}</td>
+          <td>{{ product.catID }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.featured }}</td>
+          <td>{{ product.active }}</td>
+          <td>
+            <button [routerLink]="['/', 'product', 'edit', product.id]" class="btn btn-info">
+              <i class='fa fa-pencil'></i>
+            </button>
+            <button (click)="onDelete(product)" type="button" class="btn btn-danger"><i class="fa fa-trash"
+              aria-hidden="true"></i>
+          </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
