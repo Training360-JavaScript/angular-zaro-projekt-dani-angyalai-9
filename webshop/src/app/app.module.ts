@@ -11,6 +11,7 @@ import { ProductComponent } from './page/product/product.component';
 import { CustomerComponent } from './page/customer/customer.component';
 import { OrderComponent } from './page/order/order.component';
 import { BillComponent } from './page/bill/bill.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { BillComponent } from './page/bill/bill.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
