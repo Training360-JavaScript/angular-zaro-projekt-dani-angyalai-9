@@ -7,15 +7,39 @@
     <table class="table">
       <thead>
         <tr>
-          <td>#</td>
-          <td>OrderID</td>
-          <td>Amount</td>
-          <td>Status</td>
-          <td></td>
+          <th class="extra_thin" (click)="onSort('id')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'id' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'id' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>#</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('orderID')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'orderID' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'orderID' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>OrderID</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('amount')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'amount' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'amount' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>Amount</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('status')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'status' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'status' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>Status</span>
+            </div>
+          </th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let bill of bills$ | async">
+        <tr *ngFor="let bill of bills$ | async | sorter: sorterKey : sorterDirection">
           <td>{{ bill.id }}</td>
           <td>{{ bill.orderID }}</td>
           <td>{{ bill.amount }}</td>
