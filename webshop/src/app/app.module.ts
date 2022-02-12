@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { SidebarComponent } from './common/sidebar/sidebar.component';
 import { HomeComponent } from './page/home/home.component';
 import { HeaderComponent } from './common/header/header.component';
+import { FilterPipe } from './pipe/filter.pipe';
+import { SorterPipe } from './pipe/sorter.pipe';
 import { ProductComponent } from './page/product/product.component';
 import { CustomerComponent } from './page/customer/customer.component';
 import { OrderComponent } from './page/order/order.component';
@@ -19,6 +21,8 @@ import { FormsModule } from '@angular/forms';
     SidebarComponent,
     HomeComponent,
     HeaderComponent,
+    FilterPipe,
+    SorterPipe
     ProductComponent,
     CustomerComponent,
     OrderComponent,
