@@ -1,5 +1,5 @@
 <div>
-  <button type="button" class="btn btn-success btn-block" [routerLink]="['/', 'edit-bill', 0 ]">Add new bill</button>
+  <button type="button" class="btn btn-success btn-block" [routerLink]="['/', 'bill', 0 ]">Add new bill</button>
 </div>
 <div class="row">
   <div class="col-12">
@@ -21,12 +21,10 @@
           <td>{{ bill.amount }}</td>
           <td>{{ bill.status }}</td>
           <td>
-            <div class="btn-group" role="group" aria-label="Basic example">
-              <button [routerLink]="['/', 'edit-bill', bill.id]" type="button" class="btn btn-info"><i class="fa fa-save"
+              <button [routerLink]="['/', 'bill', bill.id]" type="button" class="btn btn-info"><i class="fa fa-pencil"
                   aria-hidden="true"></i></button>
               <button (click)="onDelete(bill)" type="button" class="btn btn-danger"><i class="fa fa-trash"
                   aria-hidden="true"></i></button>
-              </div>
           </td>
         </tr>
       </tbody>

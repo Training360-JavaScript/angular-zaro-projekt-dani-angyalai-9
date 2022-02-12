@@ -12,6 +12,9 @@ import { OrderService } from 'src/app/service/order.service';
 export class OrderComponent implements OnInit {
   orders$: Observable<Order[]> = this.orderService.getAll();
 
+  sorterKey: string = 'id';
+  sorterDirection: number = 1;
+
   constructor(
     private orderService: OrderService,
     private ar: ActivatedRoute,
@@ -25,6 +28,16 @@ export class OrderComponent implements OnInit {
     this.orderService.deleteItem(order.id).subscribe(
       ar => this.router.navigate(['/', 'order'])
     );
+  }
+
+  onSort(key: string): void {
+    if (key === this.sorterKey) {
+      this.sorterDirection *= -1;
+    } else {
+      this.sorterDirection = 1;
+    }
+
+    this.sorterKey = key;
   }
 
 }
