@@ -1,0 +1,36 @@
+<div>
+  <button type="button" class="btn btn-success btn-block" [routerLink]="['/', 'edit-order', 0 ]">Add new order</button>
+</div>
+<div class="row">
+  <div class="col-12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <td>#</td>
+          <td>CustomerID</td>
+          <td>ProductID</td>
+          <td>Amount</td>
+          <td>Status</td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders$ | async">
+          <td>{{ order.id }}</td>
+          <td>{{ order.customerID }}</td>
+          <td>{{ order.productID }}</td>
+          <td>{{ order.amount }}</td>
+          <td>{{ order.status }}</td>
+          <td>
+            <button [routerLink]="['/', 'order', 'edit', order.id]" class="btn btn-info">
+              <i class='fa fa-pencil'></i>
+            </button>
+            <button (click)="onDelete(order)" type="button" class="btn btn-danger"><i class="fa fa-trash"
+                aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
