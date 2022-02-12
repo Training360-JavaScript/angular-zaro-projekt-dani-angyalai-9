@@ -13,17 +13,17 @@
               <span>#</span>
             </div>
           </th>
-          <th class="extra_thin" (click)="onSort('firstname')">
+          <th class="extra_thin" (click)="onSort('firstName')">
             <div class="th_center">
-              <i *ngIf="sorterKey === 'firstname' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
-              <i *ngIf="sorterKey === 'firstname' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <i *ngIf="sorterKey === 'firstName' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'firstName' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
               <span>Firstname</span>
             </div>
           </th>
-          <th class="extra_thin" (click)="onSort('lastname')">
+          <th class="extra_thin" (click)="onSort('lastName')">
             <div class="th_center">
-              <i *ngIf="sorterKey === 'lastname' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
-              <i *ngIf="sorterKey === 'lastname' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <i *ngIf="sorterKey === 'lastName' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'lastName' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
               <span>Lastname</span>
             </div>
           </th>
@@ -34,11 +34,11 @@
               <span>Email</span>
             </div>
           </th>
-          <th class="extra_thin" (click)="onSort('addressIP')">
+          <th class="extra_thin" (click)="onSort('zip')">
             <div class="th_center">
-              <i *ngIf="sorterKey === 'addressIP' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
-              <i *ngIf="sorterKey === 'addressIP' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
-              <span>AddressIP</span>
+              <i *ngIf="sorterKey === 'zip' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'zip' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>Addresszip</span>
             </div>
           </th>
           <th class="extra_thin" (click)="onSort('country')">
