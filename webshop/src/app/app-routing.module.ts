@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { EditCustomerComponent } from './page/edit-customer/edit-customer.component';
 import { EditProductComponent } from './page/edit-product/edit-product.component';
+import { EditBillComponent } from './page/edit-bill/edit-bill.component';
+import { EditOrderComponent } from './page/edit-order/edit-order.component';
 
 import { BillComponent } from './page/bill/bill.component';
 import { CustomerComponent } from './page/customer/customer.component';
@@ -37,7 +39,7 @@ const routes: Routes = [
   },
   {
     path: 'order/:id',
-    component: OrderComponent,
+    component: EditOrderComponent,
   },
   {
     path: 'bill',
@@ -45,7 +47,7 @@ const routes: Routes = [
   },
   {
     path: 'bill/:id',
-    component: BillComponent,
+    component: EditBillComponent,
   },
   {
     path: '**',
