@@ -2,6 +2,7 @@
     <div *ngIf="(product$ | async) as product" class="col-8 offset-2">
         <form #productForm="ngForm" (ngSubmit)="onUpdate(productForm, product)">
             <div class="form-group">
+                <input [(ngModel)]="product['id']" type="hidden" name="id">
                 <label for="name">Name</label>
                 <input name="name" id="name" [(ngModel)]="product['name']"
                 type="text" class="form-control" 
