@@ -18,7 +18,7 @@ export class ProductComponent implements OnInit {
 
   phrase: string = '';
   filterKey: string = 'name';
-  filterKeys: string[] = ['name', 'description', 'price', 'active', 'featured'];
+  filterKeys: string[] = ['name', 'type', 'catID', 'description', 'price', 'featured', 'active'];
 
 
   constructor(

@@ -15,6 +15,10 @@ export class OrderComponent implements OnInit {
   sorterKey: string = 'id';
   sorterDirection: number = 1;
 
+  phrase: string = '';
+  filterKey: string = 'name';
+  filterKeys: string[] = ['customerID', 'productID', 'amount', 'status'];
+
   constructor(
     private orderService: OrderService,
     private ar: ActivatedRoute,
