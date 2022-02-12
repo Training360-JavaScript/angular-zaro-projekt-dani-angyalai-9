@@ -1,18 +1,54 @@
 <div>
-  <button type="button" class="btn btn-success btn-block" [routerLink]="['/', 'edit-customer', 0 ]">Add new customer</button>
+  <button type="button" class="btn btn-success btn-block" [routerLink]="['/', 'customer', 0 ]">Add new customer</button>
 </div>
 <div class="row">
   <div class="col-12">
     <table class="table table-striped">
       <thead>
         <tr>
-          <td>#</td>
-          <td>Firstname</td>
-          <td>Lastname</td>
-          <td>Email</td>
-          <td>Address</td>
-          <td>Active</td>
-          <td></td>
+          <th class="extra_thin" (click)="onSort('id')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'id' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'id' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>#</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('firstname')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'firstname' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'firstname' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>Firstname</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('lastname')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'lastname' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'lastname' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>Lastname</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('email')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'email' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'email' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>Email</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('address')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'address' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'address' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>Address</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('active')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'active' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'active' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>Active</span>
+            </div>
+          </th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -24,7 +60,7 @@
           <td>{{ customer.address }}</td>
           <td>{{ customer.active }}</td>
           <td>
-            <button [routerLink]="['/', 'customer', 'edit', customer.id]" class="btn btn-info">
+            <button [routerLink]="['/', 'customer', customer.id]" class="btn btn-info">
               <i class='fa fa-pencil'></i>
             </button>
             <button (click)="onDelete(customer)" type="button" class="btn btn-danger"><i class="fa fa-trash"

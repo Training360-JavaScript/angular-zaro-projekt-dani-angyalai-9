@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Bill } from 'src/app/model/bill';
-import { Customer } from 'src/app/model/customer';
 import { BillService } from 'src/app/service/bill.service';
 
 @Component({
@@ -13,6 +12,9 @@ import { BillService } from 'src/app/service/bill.service';
 export class BillComponent implements OnInit {
 
   bills$: Observable<Bill[]> = this.billService.getAll();
+
+  sorterKey: string = 'id';
+  sorterDirection: number = 1;
 
   constructor(
     private billService: BillService,
@@ -28,4 +30,14 @@ export class BillComponent implements OnInit {
       ar => this.router.navigate(['/', 'bill'])
     );
   }
+
+  onSort(key: string): void {
+    if (key === this.sorterKey) {
+      this.sorterDirection *= -1;
+    } else {
+      this.sorterDirection = 1;
+    }
+    this.sorterKey = key;
+  }
+
 }
