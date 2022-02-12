@@ -1,5 +1,5 @@
 <div>
-  <button type="button" class="btn btn-success btn-block" [routerLink]="['/', 'edit-product', 0 ]">Add new product</button>
+  <button type="button" class="btn btn-success btn-block" [routerLink]="['/', 'product', 0 ]">Add new product</button>
 </div>
 <div class="row">
   <div class="col-12">
@@ -76,7 +76,7 @@
           <td>{{ product.featured }}</td>
           <td>{{ product.active }}</td>
           <td>
-            <button [routerLink]="['/', 'product', 'edit', product.id]" class="btn btn-info">
+            <button [routerLink]="['/', 'product', product.id]" class="btn btn-info">
               <i class='fa fa-pencil'></i>
             </button>
             <button (click)="onDelete(product)" type="button" class="btn btn-danger"><i class="fa fa-trash"
