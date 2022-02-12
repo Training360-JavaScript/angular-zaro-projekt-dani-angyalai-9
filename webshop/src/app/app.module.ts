@@ -13,6 +13,7 @@ import { EditCustomerComponent } from './page/edit-customer/edit-customer.compon
 import { EditBillComponent } from './page/edit-bill/edit-bill.component';
 import { EditOrderComponent } from './page/edit-order/edit-order.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +24,7 @@ import { EditOrderComponent } from './page/edit-order/edit-order.component';
     EditCustomerComponent,
     EditBillComponent,
     EditOrderComponent
+    
   ],
   imports: [
     BrowserModule,
