@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { EditBillComponent } from './page/edit-bill/edit-bill.component';
 import { EditCustomerComponent } from './page/edit-customer/edit-customer.component';
-import { EditOrderComponent } from './page/edit-order/edit-order.component';
 import { EditProductComponent } from './page/edit-product/edit-product.component';
 
+import { BillComponent } from './page/bill/bill.component';
+import { CustomerComponent } from './page/customer/customer.component';
 import { HomeComponent } from './page/home/home.component';
+import { OrderComponent } from './page/order/order.component';
+import { ProductComponent } from './page/product/product.component';
 
 const routes: Routes = [
   {
@@ -30,13 +32,26 @@ const routes: Routes = [
     component: EditCustomerComponent,
   },
   {
+    path: 'order',
+    component: OrderComponent,
+  },
+  {
     path: 'order/:id',
-    component: EditOrderComponent,
+    component: OrderComponent,
+  },
+  {
+    path: 'bill',
+    component: BillComponent,
   },
   {
     path: 'bill/:id',
-    component: EditBillComponent,
+    component: BillComponent,
   },
+  {
+    path: '**',
+    redirectTo:'',
+  },
+
 
 ];
 
