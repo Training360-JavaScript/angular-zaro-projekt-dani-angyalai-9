@@ -16,6 +16,10 @@ export class BillComponent implements OnInit {
   sorterKey: string = 'id';
   sorterDirection: number = 1;
 
+  phrase: string = '';
+  filterKey: string = 'name';
+  filterKeys: string[] = ['orderID', 'amount', 'status'];
+
   constructor(
     private billService: BillService,
     private ar: ActivatedRoute,

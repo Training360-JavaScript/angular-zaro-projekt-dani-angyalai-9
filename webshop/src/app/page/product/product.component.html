@@ -22,11 +22,11 @@
                 <span>#</span>
               </div>
             </th>
-            <th class="thin" (click)="onSort('stock')">
+            <th class="thin" (click)="onSort('name')">
               <div class="th_center">
-                <i *ngIf="sorterKey === 'stock' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
-                <i *ngIf="sorterKey === 'stock' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
-                <span>Stock</span>
+                <i *ngIf="sorterKey === 'name' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+                <i *ngIf="sorterKey === 'name' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+                <span>Name</span>
               </div>
             </th>
             <th class="thin" (click)="onSort('type')">
@@ -75,7 +75,7 @@
         </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let product of products$ | async | sorter: sorterKey : sorterDirection">
+      <tr *ngFor="let product of products$ | async | sorter: sorterKey : sorterDirection | filter: phrase : filterKey">
           <td>{{ product.id }}</td>
           <td>{{ product.name }}</td>
           <td>{{ product.type }}</td>

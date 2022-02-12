@@ -1,6 +1,15 @@
 <div>
   <button type="button" class="btn btn-success btn-block" [routerLink]="['/', 'customer', 0 ]">Add new customer</button>
 </div>
+
+<div class="search bg-light border rounded w-100 p-3 my-5 d-flex flex-md-row flex-column align-items-center">
+  <span class="font-weight-bold text-uppercase text-center col-md-2 pt-2 ml-md-5">Search by:</span>
+  <select class="form-control border col-3" [(ngModel)]="filterKey">
+    <option *ngFor="let key of filterKeys" [value]="[key]">{{key}}</option>
+  </select>
+  <input [(ngModel)]="phrase" class="filter-search border rounded col-5 mx-3" type="text" placeholder="Search...">
+</div>
+
 <div class="row">
   <div class="col-12">
     <table class="table table-striped">
@@ -80,7 +89,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let customer of customers$ | async | sorter: sorterKey : sorterDirection">
+        <tr *ngFor="let customer of customers$ | async | sorter: sorterKey : sorterDirection | filter: phrase : filterKey">
           <td>{{ customer.id }}</td>
           <td>{{ customer.firstName }}</td>
           <td>{{ customer.lastName }}</td>

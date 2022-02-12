@@ -15,6 +15,10 @@ export class CustomerComponent implements OnInit {
   sorterKey: string = 'id';
   sorterDirection: number = 1;
 
+  phrase: string = '';
+  filterKey: string = 'name';
+  filterKeys: string[] = ['firstName', 'lastName', 'email', 'zip', 'country', 'city', 'street', 'notes', 'active', 'featured'];
+
   constructor(
     private customerService: CustomerService,
     private ar: ActivatedRoute,
