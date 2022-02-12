@@ -46,14 +46,14 @@ export class EditCustomerComponent implements OnInit {
   onUpdate(customerForm: NgForm, customer: Customer): void {
     if (customer.id === 0) {
       this.isNewCustomer = true;
-      this.customerService.create(customer).subscribe(
+      this.customerService.createItem(customer).subscribe(
         () => this.router.navigate(['/']) //ide majd a product page linkje kell!!!
         )
       }
       
       if (customer.id !== 0 && !this.isNewCustomer) {
         this.isNewCustomer = false;
-        this.customerService.update(customer).subscribe(
+        this.customerService.updateItem(customer).subscribe(
           () => this.router.navigate(['/']) //ide majd a product page linkje kell!!!          
       )
     }
