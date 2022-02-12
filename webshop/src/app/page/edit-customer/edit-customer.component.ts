@@ -13,8 +13,7 @@ import { CustomerService } from 'src/app/service/customer.service';
 export class EditCustomerComponent implements OnInit {
 
   customer$: Observable<Customer> = this.activatedRoute.params.pipe(
-    switchMap( params => this.customerService.getItem(params['id'])
-      /* {
+    switchMap( params => {
       let customerFromList$: Observable<Customer> = 
       this.customerService.getItem(params['id']);
       
@@ -25,8 +24,7 @@ export class EditCustomerComponent implements OnInit {
 
       customerFromList$.subscribe()
       return customerFromList$
-    } */
-    )
+    })
 
   )
 
