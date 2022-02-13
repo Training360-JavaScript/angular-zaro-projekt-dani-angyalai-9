@@ -4,19 +4,19 @@
             <input [(ngModel)]="customer['id']" type="hidden" name="id">
             <div class="form-group">
                 <label for="firstname">Firstname</label>
-                <input name="firstname" id="firstname" [(ngModel)]="customer['firstname']" 
+                <input name="firstname" id="firstname" [(ngModel)]="customer['firstName']" 
                 type="text" class="form-control"
                 required pattern="^[A-Z][a-z]*$">
-                <div [hidden]="customerForm.controls['firstname'].valid" class="error-message">
+                <div [hidden]="customerForm.controls['firstName'].valid" class="error-message">
                     Please use only letters.
                 </div>
             </div>
             <div class="form-group">
                 <label for="lastname">Lastname</label>
-                <input name="lastname" id="lastname" [(ngModel)]="customer['lastname']" 
+                <input name="lastname" id="lastname" [(ngModel)]="customer['lastName']" 
                 type="text"  class="form-control"
                 required pattern="^[A-Z][a-z]*$">
-                <div [hidden]="customerForm.controls['lastname'].valid" class="error-message">
+                <div [hidden]="customerForm.controls['lastName'].valid" class="error-message">
                     Please use only letters.
                 </div>
             </div>
