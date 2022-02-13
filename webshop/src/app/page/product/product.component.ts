@@ -16,6 +16,11 @@ export class ProductComponent implements OnInit {
   sorterKey: string = 'id';
   sorterDirection: number = 1;
 
+  phrase: string = '';
+  filterKey: string = 'name';
+  filterKeys: string[] = ['name', 'type', 'catID', 'description', 'price', 'featured', 'active'];
+
+
   constructor(
     private productService: ProductService,
     private ar: ActivatedRoute,

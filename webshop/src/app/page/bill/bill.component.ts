@@ -1,26 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Order } from 'src/app/model/order';
-import { OrderService } from 'src/app/service/order.service';
+import { Bill } from 'src/app/model/bill';
+import { BillService } from 'src/app/service/bill.service';
 
 @Component({
-  selector: 'app-order',
-  templateUrl: './order.component.html',
-  styleUrls: ['./order.component.scss']
+  selector: 'app-bill',
+  templateUrl: './bill.component.html',
+  styleUrls: ['./bill.component.scss']
 })
-export class OrderComponent implements OnInit {
-  orders$: Observable<Order[]> = this.orderService.getAll();
+export class BillComponent implements OnInit {
+
+  bills$: Observable<Bill[]> = this.billService.getAll();
 
   sorterKey: string = 'id';
   sorterDirection: number = 1;
 
   phrase: string = '';
   filterKey: string = 'name';
-  filterKeys: string[] = ['customerID', 'productID', 'amount', 'status'];
+  filterKeys: string[] = ['orderID', 'amount', 'status'];
 
   constructor(
-    private orderService: OrderService,
+    private billService: BillService,
     private ar: ActivatedRoute,
     private router: Router,
   ) { }
@@ -28,9 +29,9 @@ export class OrderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onDelete(order: Order): void {
-    this.orderService.deleteItem(order.id).subscribe(
-      ar => this.router.navigate(['/', 'order'])
+  onDelete(bill: Bill): void {
+    this.billService.deleteItem(bill.id).subscribe(
+      ar => this.router.navigate(['/', 'bill'])
     );
   }
 
@@ -40,7 +41,6 @@ export class OrderComponent implements OnInit {
     } else {
       this.sorterDirection = 1;
     }
-
     this.sorterKey = key;
   }
 

@@ -11,6 +11,14 @@ import { CustomerService } from 'src/app/service/customer.service';
 })
 export class CustomerComponent implements OnInit {
   customers$: Observable<Customer[]> = this.customerService.getAll();
+
+  sorterKey: string = 'id';
+  sorterDirection: number = 1;
+
+  phrase: string = '';
+  filterKey: string = 'name';
+  filterKeys: string[] = ['firstName', 'lastName', 'email', 'zip', 'country', 'city', 'street', 'notes', 'active', 'featured'];
+
   constructor(
     private customerService: CustomerService,
     private ar: ActivatedRoute,
@@ -23,6 +31,15 @@ export class CustomerComponent implements OnInit {
     this.customerService.deleteItem(customer.id).subscribe(
       ar => this.router.navigate(['/', 'customer'])
     );
-
   }
+
+  onSort(key: string): void {
+    if (key === this.sorterKey) {
+      this.sorterDirection *= -1;
+    } else {
+      this.sorterDirection = 1;
+    }
+    this.sorterKey = key;
+  }
+
 }

@@ -1,5 +1,5 @@
 <div>
-  <button type="button" class="btn btn-success btn-block" [routerLink]="['/', 'order', 0 ]">Add new order</button>
+  <button type="button" class="btn btn-success btn-block" [routerLink]="['/', 'bill', 0 ]">Add new bill</button>
 </div>
 
 <div class="search bg-light border rounded w-100 p-3 my-5 d-flex flex-md-row flex-column align-items-center">
@@ -12,7 +12,8 @@
 
 <div class="row">
   <div class="col-12">
-    <table class="table table-striped">
+
+    <table class="table">
       <thead>
         <tr>
           <th class="extra_thin" (click)="onSort('id')">
@@ -22,28 +23,21 @@
               <span>#</span>
             </div>
           </th>
-          <th class="thin" (click)="onSort('customerID')">
+          <th class="extra_thin" (click)="onSort('orderID')">
             <div class="th_center">
-              <i *ngIf="sorterKey === 'customerID' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
-              <i *ngIf="sorterKey === 'customerID' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
-              <span>CustomerID</span>
+              <i *ngIf="sorterKey === 'orderID' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'orderID' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>OrderID</span>
             </div>
           </th>
-          <th class="thin" (click)="onSort('productID')">
-            <div class="th_center">
-              <i *ngIf="sorterKey === 'productID' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
-              <i *ngIf="sorterKey === 'productID' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
-              <span>ProductID</span>
-            </div>
-          </th>
-          <th class="thin" (click)="onSort('amount')">
+          <th class="extra_thin" (click)="onSort('amount')">
             <div class="th_center">
               <i *ngIf="sorterKey === 'amount' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
               <i *ngIf="sorterKey === 'amount' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
               <span>Amount</span>
             </div>
           </th>
-          <th class="thin" (click)="onSort('status')">
+          <th class="extra_thin" (click)="onSort('status')">
             <div class="th_center">
               <i *ngIf="sorterKey === 'status' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
               <i *ngIf="sorterKey === 'status' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
@@ -54,19 +48,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let order of orders$ | async | sorter: sorterKey : sorterDirection | filter: phrase : filterKey">
-          <td>{{ order.id }}</td>
-          <td>{{ order.customerID }}</td>
-          <td>{{ order.productID }}</td>
-          <td>{{ order.amount }}</td>
-          <td>{{ order.status }}</td>
+        <tr *ngFor="let bill of bills$ | async | sorter: sorterKey : sorterDirection | filter: phrase : filterKey">
+          <td>{{ bill.id }}</td>
+          <td>{{ bill.orderID }}</td>
+          <td>{{ bill.amount }}</td>
+          <td>{{ bill.status }}</td>
           <td>
-            <button [routerLink]="['/', 'order', order.id]" class="btn btn-info">
-              <i class='fa fa-pencil'></i>
-            </button>
-            <button (click)="onDelete(order)" type="button" class="btn btn-danger"><i class="fa fa-trash"
-                aria-hidden="true"></i>
-            </button>
+              <button [routerLink]="['/', 'bill', bill.id]" type="button" class="btn btn-info"><i class="fa fa-pencil"
+                  aria-hidden="true"></i></button>
+              <button (click)="onDelete(bill)" type="button" class="btn btn-danger"><i class="fa fa-trash"
+                  aria-hidden="true"></i></button>
           </td>
         </tr>
       </tbody>
