@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { StatisticsService } from 'src/app/service/statistics.service';
-import { ProductService } from 'src/app/service/product.service';
-import { CustomerService } from 'src/app/service/customer.service';
-import { OrderService } from 'src/app/service/order.service';
 
 @Component({
   selector: 'app-home',
@@ -11,12 +8,15 @@ import { OrderService } from 'src/app/service/order.service';
 })
 export class HomeComponent implements OnInit {
 
-  results = this.statisticsService.results
+  results = this.statisticsService.results as any;
 
   constructor(
     private statisticsService: StatisticsService
   ) {
     statisticsService.getStatistics()
+  }
+
+  onCounterReady() {
   }
 
   ngOnInit(): void {}

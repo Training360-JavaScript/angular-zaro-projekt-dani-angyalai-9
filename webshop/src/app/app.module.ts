@@ -20,8 +20,10 @@ import { ProductComponent } from './page/product/product.component';
 import { CustomerComponent } from './page/customer/customer.component';
 import { OrderComponent } from './page/order/order.component';
 import { BillComponent } from './page/bill/bill.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CountUpModule } from 'ngx-countup';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ProductComponent,
     CustomerComponent,
     OrderComponent,
-    BillComponent
+    BillComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,10 +48,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
+    MatProgressSpinnerModule,
+    CountUpModule,
     //ToasterModule,
     //BrowserAnimationsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,2 +1,35 @@
-<h2>Dashboard</h2>
-<p>{{ results | json }}</p>
+<h1><strong>Dashboard</strong></h1>
+
+<!-- <p>{{ results | json }}</p> -->
+<!-- <mat-progress-spinner value="100" mode="determinate"> </mat-progress-spinner> -->
+
+<br>
+<div class="row">
+  <div class="col-12">
+    <h2>
+      <span>Active products: </span>
+      <span [countUp]="results['products'].results?.activeItems"> 0 </span>
+    </h2>
+  </div>
+  <div class="col-12">
+    <h2>
+      <span>Active customers: </span>
+      <span [countUp]="results['customers'].results?.activeItems"> 0 </span>
+    </h2>
+  </div>
+  <div class="col-12">
+    <h2>
+      <span>Unpaid orders: </span>
+      <span [countUp]="results['orders'].results?.quantitiesByStatus.new">
+        0
+      </span>
+    </h2>
+  </div>
+  <div class="col-12">
+    <h2>
+      <span>Total amount of unpaid bills: </span>
+      <span [countUp]="results['bills'].results?.amountsByStatus.new"> 0 </span>
+      Ft
+    </h2>
+  </div>
+</div>
