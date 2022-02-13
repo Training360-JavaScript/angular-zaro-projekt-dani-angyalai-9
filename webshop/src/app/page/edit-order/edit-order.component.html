@@ -4,19 +4,19 @@
             <div class="form-group">
                 <input [(ngModel)]="order['id']" type="hidden" name="id">
                 <label for="customerid">CustomerID</label>
-                <input  name="customerid" id="customerid" [(ngModel)]="order['customerid']"
+                <input  name="customerid" id="customerid" [(ngModel)]="order['customerID']"
                 type="text" class="form-control"
                 required pattern="^[1-9][0-9]*$">
-                <div [hidden]="orderForm.controls['customerid'].valid" class="error-message">
+                <div [hidden]="orderForm.controls['customerID'].valid" class="error-message">
                     Please use only numbers.
                 </div>
             </div>
             <div class="form-group">
                 <label for="">ProductID</label>
-                <input name="productid" id="productid" [(ngModel)]="order['productid']"
+                <input name="productid" id="productid" [(ngModel)]="order['productID']"
                 type="text" class="form-control"
                 required pattern="^[1-9][0-9]*$">>
-                <div [hidden]="orderForm.controls['productid'].valid" class="error-message">
+                <div [hidden]="orderForm.controls['productID'].valid" class="error-message">
                     Please use only numbers.
                 </div>
             </div>
