@@ -20,6 +20,7 @@ import { ProductComponent } from './page/product/product.component';
 import { CustomerComponent } from './page/customer/customer.component';
 import { OrderComponent } from './page/order/order.component';
 import { BillComponent } from './page/bill/bill.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { BillComponent } from './page/bill/bill.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    BrowserAnimationsModule,
     //ToasterModule,
     //BrowserAnimationsModule
   ],
