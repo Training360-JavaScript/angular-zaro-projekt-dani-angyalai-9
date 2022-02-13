@@ -4,7 +4,7 @@
             <div class="form-group">
                 <input [(ngModel)]="bill['id']" type="hidden" name="id">
                 <label for="orderid">orderID</label>
-                <input name="orderid" id="orderid" [(ngModel)]="bill['orderID']"
+                <input name="orderID" id="orderid" [(ngModel)]="bill['orderID']"
                 type="text" class="form-control"
                 required pattern="^[1-9][0-9]*$">
                 <div [hidden]="billForm.controls['orderID'].valid" class="error-message">
