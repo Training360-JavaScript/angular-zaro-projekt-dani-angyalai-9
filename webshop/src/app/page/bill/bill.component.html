@@ -48,7 +48,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let bill of bills$ | async | sorter: sorterKey : sorterDirection | filter: phrase : filterKey">
+        <tr *ngFor="let bill of bills$ | async | filter: phrase : filterKey | sorter: sorterKey : sorterDirection">
           <td>{{ bill.id }}</td>
           <td>{{ bill.orderID }}</td>
           <td>{{ bill.amount }}</td>
