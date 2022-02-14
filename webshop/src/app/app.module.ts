@@ -5,6 +5,15 @@ import { FormsModule } from '@angular/forms';
 //import { ToasterModule } from 'ngx-toaster/src/lib';
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// Layout
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './common/sidebar/sidebar.component';
@@ -52,6 +61,14 @@ import { CountUpModule } from 'ngx-countup';
     CountUpModule,
     //ToasterModule,
     //BrowserAnimationsModule
+
+    FlexLayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
