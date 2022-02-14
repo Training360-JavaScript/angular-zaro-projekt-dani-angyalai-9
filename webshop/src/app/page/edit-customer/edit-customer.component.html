@@ -7,7 +7,7 @@
                 <input name="firstname" id="firstname" [(ngModel)]="customer['firstName']" 
                 type="text" class="form-control"
                 required pattern="^[A-Z][a-z]*$">
-                <div [hidden]="customerForm.controls['firstName'].valid" class="error-message">
+                <div [hidden]="customerForm.controls['firstname'].valid" class="error-message">
                     Please use only letters.
                 </div>
             </div>
@@ -16,7 +16,7 @@
                 <input name="lastname" id="lastname" [(ngModel)]="customer['lastName']" 
                 type="text"  class="form-control"
                 required pattern="^[A-Z][a-z]*$">
-                <div [hidden]="customerForm.controls['lastName'].valid" class="error-message">
+                <div [hidden]="customerForm.controls['lastname'].valid" class="error-message">
                     Please use only letters.
                 </div>
             </div>

@@ -7,7 +7,7 @@
                 <input name="orderid" id="orderid" [(ngModel)]="bill['orderID']"
                 type="text" class="form-control"
                 required pattern="^[1-9][0-9]*$">
-                <div [hidden]="billForm.controls['orderID'].valid" class="error-message">
+                <div [hidden]="billForm.controls['orderid'].valid" class="error-message">
                     Please use only numbers.
                 </div>
             </div>
@@ -22,11 +22,16 @@
             </div>
             <div class="form-group">
                 <label for="status">Status</label>
+                <br>
                 <select name="status" id="status" [(ngModel)]="bill['status']">
                     <option value="new">new</option>
                     <option value="paid">paid</option>
                 </select>
             </div>
+            <button [disabled]="billForm.invalid" type="submit" 
+            class="btn btn-primary btn-block btn-lg">
+                <i class="fa fa-save"></i>
+            </button>
         </form>
     </div>
 </div>
