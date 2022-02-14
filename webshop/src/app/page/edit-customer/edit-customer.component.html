@@ -8,12 +8,12 @@
                 type="text" class="form-control"
                 required pattern="^[A-Z][a-z]*$">
                 <div [hidden]="customerForm.controls['firstName'].valid" class="error-message">
-                    Please use only letters.
-                </div>
+                  Please use only letters.
+              </div>
             </div>
             <div class="form-group">
-                <label for="lastname">Lastname</label>
-                <input name="lastname" id="lastname" [(ngModel)]="customer['lastName']"
+              <label for="lastname">Lastname</label>
+                <input name="lastName" id="lastname" [(ngModel)]="customer['lastName']"
                 type="text"  class="form-control"
                 required pattern="^[A-Z][a-z]*$">
                 <div [hidden]="customerForm.controls['lastName'].valid" class="error-message">
@@ -33,7 +33,7 @@
                 <label for="">Address</label>
                 <label for="zip">zip</label>
                 <input name="zip" id="zip" [(ngModel)]="customer['zip']"
-                type="number"  class="form-control"
+                type="text"  class="form-control"
                 required pattern="^[0-9]{1,5}$">
                 <div [hidden]="customerForm.controls['zip'].valid" class="error-message">
                     Please use only numbers.
