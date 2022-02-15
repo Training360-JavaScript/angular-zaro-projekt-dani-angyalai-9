@@ -31,8 +31,11 @@ import { OrderComponent } from './page/order/order.component';
 import { BillComponent } from './page/bill/bill.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { CountUpModule } from 'ngx-countup';
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { NgxEchartsModule } from 'ngx-echarts';
+
+import { ChartPieComponent } from './common/chart-pie/chart-pie.component';
+import { ChartSpinnerComponent } from './common/chart-spinner/chart-spinner.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,8 @@ import { CountUpModule } from 'ngx-countup';
     CustomerComponent,
     OrderComponent,
     BillComponent,
+    ChartPieComponent,
+    ChartSpinnerComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,8 +62,7 @@ import { CountUpModule } from 'ngx-countup';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatProgressSpinnerModule,
-    CountUpModule,
+
     //ToasterModule,
     //BrowserAnimationsModule
 
@@ -69,6 +73,25 @@ import { CountUpModule } from 'ngx-countup';
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
+
+    NgCircleProgressModule.forRoot({
+      // defaults
+      radius: 100,
+      units: '',
+      outerStrokeWidth: 16,
+      innerStrokeWidth: 8,
+      outerStrokeColor: "#78C000",
+      innerStrokeColor: "#C7E596",
+      animation: true,
+      animationDuration: 700,
+      subtitleFontSize: "13",
+      subtitleFontWeight: "2em",
+      subtitleColor: "black",
+    }),
+
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
