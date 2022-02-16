@@ -92,7 +92,7 @@ export class StatisticsService {
     });
     Object.keys(state.amountsByStatus).forEach((key) => {
       if (item.hasOwnProperty('amount') && item.status == key)
-        state.amountsByStatus[key] += item.amount;
+        state.amountsByStatus[key] += parseFloat(item.amount);
     });
     return state;
   }
