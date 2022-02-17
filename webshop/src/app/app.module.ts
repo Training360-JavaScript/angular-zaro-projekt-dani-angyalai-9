@@ -35,6 +35,7 @@ import { BillComponent } from './page/bill/bill.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CountUpModule } from 'ngx-countup';
+import { SumPipe } from './pipe/sum.pipe';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { CountUpModule } from 'ngx-countup';
     CustomerComponent,
     OrderComponent,
     BillComponent,
+    SumPipe,
   ],
   imports: [
     BrowserModule,
