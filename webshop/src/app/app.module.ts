@@ -32,7 +32,7 @@ import { BillComponent } from './page/bill/bill.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgCircleProgressModule } from 'ng-circle-progress';
-import { NgxEchartsModule } from 'ngx-echarts';
+import { NgChartsModule } from 'ng2-charts';
 
 import { ChartPieComponent } from './common/chart-pie/chart-pie.component';
 import { ChartSpinnerComponent } from './common/chart-spinner/chart-spinner.component';
@@ -74,10 +74,13 @@ import { ChartSpinnerComponent } from './common/chart-spinner/chart-spinner.comp
     MatIconModule,
     MatButtonModule,
 
+    NgChartsModule,
     NgCircleProgressModule.forRoot({
       // defaults
       radius: 100,
       units: '',
+      unitsFontSize: '20',
+      unitsFontWeight: '2em',
       outerStrokeWidth: 16,
       innerStrokeWidth: 8,
       outerStrokeColor: "#78C000",
@@ -87,10 +90,6 @@ import { ChartSpinnerComponent } from './common/chart-spinner/chart-spinner.comp
       subtitleFontSize: "13",
       subtitleFontWeight: "2em",
       subtitleColor: "black",
-    }),
-
-    NgxEchartsModule.forRoot({
-      echarts: () => import('echarts'),
     }),
   ],
   providers: [],

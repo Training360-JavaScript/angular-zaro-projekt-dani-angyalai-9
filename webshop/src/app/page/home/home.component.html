@@ -40,7 +40,7 @@
       <app-chart-spinner
         [itemName]="'&sum; of unpaid bills'"
         [color]="'warning'"
-        [unit]="'Ft'"
+        [unit]="' Ft'"
         [activeItems]="results['bills'].results?.amountsByStatus.new"
         [inactiveItems]="results['bills'].results?.amountsByStatus.paid"
       ></app-chart-spinner>
@@ -56,24 +56,12 @@
   <div class="row">
     <div class="col-md-6">
       <app-chart-pie
-        [title]="'Orders'"
-        [subtitle]="'by status'"
-        [data]="[
-          { value: 10, name: 'teszt1' },
-          { value: 5, name: 'rose2' },
-          { value: 15, name: 'rose3' }
-        ]"
+        [chartdata]="ordersData"
       ></app-chart-pie>
     </div>
     <div class="col-md-6">
       <app-chart-pie
-        [title]="'Orders'"
-        [subtitle]="'by status'"
-        [data]="[
-          { value: 10, name: 'teszt1' },
-          { value: 5, name: 'rose2' },
-          { value: 15, name: 'rose3' }
-        ]"
+        [chartdata]="billsData"
       ></app-chart-pie>
     </div>
   </div>

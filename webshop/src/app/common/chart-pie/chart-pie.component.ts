@@ -1,58 +1,55 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { EChartsOption } from 'echarts';
-import { ThemeOption } from 'ngx-echarts';
-import { CoolTheme } from './chart-theme';
+import { Component, Input, ViewChild } from '@angular/core';
+import DatalabelsPlugin from 'chartjs-plugin-datalabels';
+import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-chart-pie',
   templateUrl: './chart-pie.component.html',
   styleUrls: ['./chart-pie.component.scss'],
 })
-export class ChartPieComponent implements OnInit {
-  @Input() title = 'asdsa';
-  @Input() subtitle = '';
-  @Input() data = [{}];
+export class ChartPieComponent {
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
-  options: EChartsOption = {};
+  @Input() chartdata: ChartData<'pie', number[], string | string[]> = {
+    labels: [],
+    datasets: [{ data: [] }],
+  };
 
-  theme: string | ThemeOption = '';
-  coolTheme = CoolTheme;
-
-  ngOnInit() {
-    this.options = {
-      title: {
-        text: this.title,
-        subtext: this.subtitle,
-        // x: 'center',
+  public pieChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'left',
       },
-      tooltip: {
-        trigger: 'item',
-        formatter: '{a} <br/>{b} : {c} ({d}%)',
-      },
-      // legend: {
-      //   // x: 'center',
-      //   // y: 'bottom',
-      //   data: [
-      //     'rose1',
-      //     'rose2',
-      //     'rose3',
-      //     'rose4',
-      //     'rose5',
-      //     'rose6',
-      //     'rose7',
-      //     'rose8',
-      //   ],
-      // },
-      calculable: true,
-      series: [
-        {
-          name: 'area',
-          type: 'pie',
-          radius: [0, 110],
-          roseType: 'area',
-          data: this.data,
+      datalabels: {
+        formatter: (value, ctx) => {
+          if (ctx.chart.data.labels) {
+            return ctx.chart.data.labels[ctx.dataIndex];
+          }
         },
-      ],
-    };
+      },
+    },
+  };
+
+  public pieChartType: ChartType = 'pie';
+  public pieChartPlugins = [DatalabelsPlugin];
+
+  addSlice(): void {
+    // if (this.chartdata.labels) {
+    //   this.chartdata.labels.push(['Line 1', 'Line 2', 'Line 3']);
+    // }
+    this.chartdata.datasets[0].data[0] = 500;
+    this.chart?.update();
+  }
+
+  removeSlice(): void {
+    // if (this.chartdata.labels) {
+    //   this.chartdata.labels.pop();
+    // }
+    // this.chartdata.datasets[0].data.pop();
+    this.chartdata.datasets[0].data[0] = 800;
+    this.chart?.update();
   }
 }
