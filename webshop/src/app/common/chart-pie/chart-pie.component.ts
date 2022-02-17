@@ -1,15 +1,19 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { Statistics } from 'src/app/service/statistics.service';
 
 @Component({
   selector: 'app-chart-pie',
   templateUrl: './chart-pie.component.html',
   styleUrls: ['./chart-pie.component.scss'],
 })
-export class ChartPieComponent {
+export class ChartPieComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+
+  @Input() statistics = new Observable<Statistics>();
 
   @Input() chartdata: ChartData<'pie', number[], string | string[]> = {
     labels: [],
@@ -36,20 +40,18 @@ export class ChartPieComponent {
   public pieChartType: ChartType = 'pie';
   public pieChartPlugins = [DatalabelsPlugin];
 
-  addSlice(): void {
-    // if (this.chartdata.labels) {
-    //   this.chartdata.labels.push(['Line 1', 'Line 2', 'Line 3']);
-    // }
-    this.chartdata.datasets[0].data[0] = 500;
-    this.chart?.update();
-  }
+  ngOnInit(): void {
+    this.statistics.subscribe((data) => {
+      console.log(data);
+      console.log(this.chartdata);
 
-  removeSlice(): void {
-    // if (this.chartdata.labels) {
-    //   this.chartdata.labels.pop();
-    // }
-    // this.chartdata.datasets[0].data.pop();
-    this.chartdata.datasets[0].data[0] = 800;
-    this.chart?.update();
+      let keyword = 'quantitiesByStatus';
+      this.chartdata.datasets[0].data.push (
+        data[keyword]['new'],
+        data[keyword]['paid'],
+        data[keyword]['shipped'],
+      );
+      this.chart?.update();
+    });
   }
 }

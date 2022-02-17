@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { map, Observable, of } from 'rxjs';
 import { Status } from '../model/status';
 import { BaseService } from './base.service';
 import { BillService } from './bill.service';
@@ -11,19 +12,17 @@ interface IDomainItem {
   type: string;
 }
 
-interface IResult {
+export interface IResult {
   [domainName: string]: {
     type: string;
-    results?: Activity | Billing;
+    results: Observable<Statistics>;
   };
 }
 
-class Billing {
+export class Statistics {
+  [key: string]: any;
   quantitiesByStatus = new Status();
   amountsByStatus = new Status();
-}
-
-class Activity {
   activeItems = 0;
   inactiveItems = 0;
 }
@@ -32,8 +31,7 @@ class Activity {
   providedIn: 'root',
 })
 export class StatisticsService {
-  public results: IResult = {};
-  private domains: { [name: string]: IDomainItem } = {
+  public domains: { [name: string]: IDomainItem } = {
     products: {
       provider: this.productService,
       type: 'activity',
@@ -60,33 +58,35 @@ export class StatisticsService {
   ) {}
 
   public getStatistics() {
+    let results: IResult = {};
     Object.entries(this.domains).forEach((domain) => {
-      this.getData(domain[0], domain[1]);
+      results[domain[0]] = {
+        type: domain[1].type,
+        results: new Observable()
+      };
+      results[domain[0]].results = this.getData(domain[1]);
     });
+    return results;
   }
 
-  private getData(domainName: string, domain: IDomainItem) {
-    let billing = new Billing();
-    let activity = new Activity();
-    this.results[domainName] = { type: domain.type };
-    domain.provider.getAll().subscribe((items) => {
-      items.forEach((item) => {
-        if (item.hasOwnProperty('status')) {
-          billing = this.checkStatus(item, billing);
-        }
-        if (item.hasOwnProperty('active')) {
-          activity = this.checkActiveState(item, activity);
-        }
-      });
-    });
-    if (domain.type == 'billing') {
-      this.results[domainName].results = billing;
-    } else {
-      this.results[domainName].results = activity;
-    }
+  private getData(domain: IDomainItem) {
+    let state = new Statistics();
+    return domain.provider.getAll().pipe(
+      map((items) => {
+        items.forEach((item) => {
+          if (item.hasOwnProperty('status')) {
+            state = this.checkStatus(item, state);
+          }
+          if (item.hasOwnProperty('active')) {
+            state = this.checkActiveState(item, state);
+          }
+        });
+        return state;
+      })
+    );
   }
 
-  private checkStatus(item: any, state: Billing) {
+  private checkStatus(item: any, state: Statistics) {
     Object.keys(state.quantitiesByStatus).forEach((key) => {
       if (item.status == key) state.quantitiesByStatus[key] += 1;
     });
@@ -97,7 +97,7 @@ export class StatisticsService {
     return state;
   }
 
-  private checkActiveState(item: any, state: Activity) {
+  private checkActiveState(item: any, state: Statistics) {
     if (item.active) state.activeItems += 1;
     else state.inactiveItems += 1;
     return state;

@@ -9,8 +9,9 @@ export class ChartSpinnerComponent implements OnInit {
   @Input() itemName = '';
   @Input() color = '';
   @Input() unit = '';
-  @Input() activeItems = 0;
-  @Input() inactiveItems = 0;
+
+  @Input() activeItems: number | undefined;
+  @Input() inactiveItems: number | undefined;
 
   colors: { [key: string]: any } = {
     info: {
@@ -23,12 +24,21 @@ export class ChartSpinnerComponent implements OnInit {
     },
   };
 
-  constructor() {}
+  percent = 0;
+
+  constructor() {
+    if (this.activeItems && this.inactiveItems) {
+      this.percent =
+        (this.activeItems / (this.activeItems + this.inactiveItems)) * 100;
+    }
+  }
 
   formatTitle = (percent: number): string => {
-    return Math.floor(
-      ((this.activeItems + this.inactiveItems) * percent) / 100
-    ).toString();
+    if (this.activeItems && this.inactiveItems) {
+      return Math.floor(
+        ((this.activeItems + this.inactiveItems) * percent) / 100
+      ).toString();
+    } else return '';
   };
 
   ngOnInit(): void {}
