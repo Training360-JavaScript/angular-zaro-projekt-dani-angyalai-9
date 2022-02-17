@@ -1,10 +1,10 @@
 <div class="row">
-    <div  *ngIf="bill$ | async as bill" class="col-8 offset-2">
+    <div  *ngIf="bill$ | async as bill" class="col-10 col-md-4 offset-1 offset-md-4">
         <form #billForm="ngForm" (ngSubmit)="onUpdate(billForm, bill)">
             <div class="form-group">
                 <input [(ngModel)]="bill['id']" type="hidden" name="id">
-                <label for="orderid">orderID</label>
-                <input name="orderid" id="orderid" [(ngModel)]="bill['orderID']"
+                <label for="orderid">OrderID</label>
+                <input name="orderID" id="orderid" [(ngModel)]="bill['orderID']"
                 type="text" class="form-control"
                 required pattern="^[1-9][0-9]*$">
                 <div [hidden]="billForm.controls['orderID'].valid" class="error-message">
@@ -20,13 +20,17 @@
                     Please use only numbers.
                 </div>
             </div>
-            <div class="form-group">
-                <label for="status">Status</label>
-                <select name="status" id="status" [(ngModel)]="bill['status']">
-                    <option value="new">new</option>
-                    <option value="paid">paid</option>
-                </select>
+            <div>
+                <mat-radio-group aria-label="Select an option" name="status" id="status" [(ngModel)]="bill['status']">
+                    <mat-radio-button value="new">new</mat-radio-button>
+                    <mat-radio-button class="ml-3" value="paid">paid</mat-radio-button>
+                </mat-radio-group>
             </div>
+
+            <button [disabled]="billForm.invalid" type="submit" 
+            class="btn btn-primary btn-block btn-lg mt-3">
+                <i class="fa fa-save"></i>
+            </button>
         </form>
     </div>
 </div>

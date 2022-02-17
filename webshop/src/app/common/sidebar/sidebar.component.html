@@ -1,4 +1,22 @@
-<nav class="menu" tabindex="0">
+
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+      <a
+        *ngFor="let item of menuItems"
+        [routerLink] = "item.url"
+        routerLinkActive = "active"
+        [routerLinkActiveOptions]="{exact: item.url === '/'}"
+        mat-list-item>
+        <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
+        {{ item.text }}
+      </a>
+      <a (click)="sidenav.toggle()" mat-list-item><mat-icon>keyboard_arrow_left</mat-icon> Close</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+
+
+<!-- <nav class="menu" tabindex="0">
   <div class="smartphone-menu-trigger"></div>
   <div class="logo">
     <a routerLink="/" class="">
@@ -6,10 +24,10 @@
     </a>
   </div>
 	<ul>
-    <li tabindex="0" class="icon-dashboard"><span>Dashboard</span></li>
+    <li routerLink="home" tabindex="0" class="icon-dashboard"><span>Dashboard</span></li>
     <li routerLink="product" class="icon-products"><span>Products</span></li>
     <li routerLink="customer" class="icon-customers"><span>Customers</span></li>
     <li routerLink="order" class="icon-orders"><span>Orders</span></li>
     <li routerLink="bill" class="icon-bills"><span>Bills</span></li>
   </ul>
-</nav>
+</nav> -->

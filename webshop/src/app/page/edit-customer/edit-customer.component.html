@@ -1,19 +1,19 @@
 <div class="row">
-    <div *ngIf="customer$ | async as customer" class="col-8 offset-2">
+    <div *ngIf="customer$ | async as customer" class="col-10 col-md-4 offset-1 offset-md-4">
         <form #customerForm="ngForm" (ngSubmit)="onUpdate(customerForm, customer)">
             <input [(ngModel)]="customer['id']" type="hidden" name="id">
             <div class="form-group">
                 <label for="firstname">Firstname</label>
-                <input name="firstname" id="firstname" [(ngModel)]="customer['firstName']" 
+                <input name="firstName" id="firstname" [(ngModel)]="customer['firstName']"
                 type="text" class="form-control"
                 required pattern="^[A-Z][a-z]*$">
                 <div [hidden]="customerForm.controls['firstName'].valid" class="error-message">
-                    Please use only letters.
-                </div>
+                  Please use only letters.
+              </div>
             </div>
             <div class="form-group">
-                <label for="lastname">Lastname</label>
-                <input name="lastname" id="lastname" [(ngModel)]="customer['lastName']" 
+              <label for="lastname">Lastname</label>
+                <input name="lastName" id="lastname" [(ngModel)]="customer['lastName']"
                 type="text"  class="form-control"
                 required pattern="^[A-Z][a-z]*$">
                 <div [hidden]="customerForm.controls['lastName'].valid" class="error-message">
@@ -22,7 +22,7 @@
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input name="email" id="email" [(ngModel)]="customer['email']" 
+                <input name="email" id="email" [(ngModel)]="customer['email']"
                 type="email" email class="form-control"
                 required>
                 <div [hidden]="customerForm.controls['email'].valid" class="error-message">
@@ -30,48 +30,51 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="">Address</label>
+                <label class="d-block" for="zip">Address</label>
                 <label for="zip">zip</label>
-                <input name="zip" id="zip" [(ngModel)]="customer['zip']" 
-                type="number"  class="form-control"
+                <input name="zip" id="zip" [(ngModel)]="customer.address.zip"
+                type="text"  class="form-control"
                 required pattern="^[0-9]{1,5}$">
                 <div [hidden]="customerForm.controls['zip'].valid" class="error-message">
                     Please use only numbers.
                 </div>
                 <label for="country">country</label>
-                <input name="country" id="country" [(ngModel)]="customer['country']" 
+                <input name="country" id="country" [(ngModel)]="customer.address.country"
                 type="text"  class="form-control"
-                required pattern="^[A-Z][a-z]*$">
+                required pattern="^[A-Z][A-Za-z]*$">
                 <div [hidden]="customerForm.controls['country'].valid" class="error-message">
                     Please use only letters.
                 </div>
                 <label for="city">city</label>
-                <input name="city" id="city" [(ngModel)]="customer['city']" 
+                <input name="city" id="city" [(ngModel)]="customer.address.city"
                 type="text"  class="form-control"
-                required pattern="^[A-Z][a-z]*$">
+                required pattern="^[A-Z][a-z ]*[A-Za-z]*$">
                 <div [hidden]="customerForm.controls['city'].valid" class="error-message">
                     Please use only letters.
                 </div>
                 <label for="street">street</label>
-                <input name="street" id="street" [(ngModel)]="customer['street']" 
+                <input name="street" id="street" [(ngModel)]="customer.address.street"
                 type="text"  class="form-control"
-                required pattern="^[A-Z][a-z]*$">
+                required pattern="^[A-Z][a-z ]*[A-Za-z]*$">
                 <div [hidden]="customerForm.controls['street'].valid" class="error-message">
                     Please use only letters.
                 </div>
                 <label for="notes">notes</label>
-                <input name="notes" id="notes" [(ngModel)]="customer['notes']" 
+                <input name="notes" id="notes" [(ngModel)]="customer.address.notes"
                 type="text"  class="form-control">
             </div>
-            <div class="form-group">
-                <label for="active">Active</label>
-                <input name="active" id="active" [(ngModel)]="customer['active']" 
-                type="checkbox"  class="form-control">
+            <div>
+                <mat-slide-toggle class="example-full-width mb-3" name="active" [(ngModel)]="customer['active']"
+                [labelPosition]="'before'">
+                    Active
+                </mat-slide-toggle>
             </div>
-            <button [disabled]="customerForm.invalid" type="submit" 
+            
+            <button [disabled]="customerForm.invalid" type="submit"
             class="btn btn-primary btn-block btn-lg">
                 <i class="fa fa-save"></i>
             </button>
         </form>
     </div>
+
 </div>
