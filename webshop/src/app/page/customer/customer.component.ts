@@ -17,7 +17,17 @@ export class CustomerComponent implements OnInit {
 
   phrase: string = '';
   filterKey: string = 'name';
-  filterKeys: string[] = ['firstName', 'lastName', 'email', 'zip', 'country', 'city', 'street', 'notes', 'active', 'featured'];
+  filterKeys ={
+    firstName: 'firstName',
+    lastName: 'lastName',
+    email: 'email',
+    zip: 'address.zip',
+    country: 'address.country',
+    city: 'address.city',
+    street: 'address.street',
+    notes: 'address.notes',
+    active: 'active',
+    featured: 'featured'};
 
   constructor(
     private customerService: CustomerService,

@@ -75,7 +75,7 @@
         </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let product of products$ | async | sorter: sorterKey : sorterDirection | filter: phrase : filterKey">
+      <tr *ngFor="let product of products$ | async | filter: phrase : filterKey | sorter: sorterKey : sorterDirection">
           <td>{{ product.id }}</td>
           <td>{{ product.name }}</td>
           <td>{{ product.type }}</td>

@@ -11,21 +11,46 @@ export class SorterPipe<T extends {[key: string]: any}> implements PipeTransform
       return list;
     }
 
-    return list.sort(( a, b ) => {
-      if ( typeof a[key]==="number" && typeof b[key]==="number"){
-        if (direction===1){
-          return a[key]-b[key];
-        } else {
-          return b[key]-a[key];
-        }
-      }else{
-        if (direction===1){
-          return String( a[key] ).toLowerCase().localeCompare( String( b[key] ).toLowerCase() );
-        } else {
-          return String( b[key] ).toLowerCase().localeCompare( String( a[key] ).toLowerCase() );
-        }
+    return this.sort( list, key, direction );
+  }
+
+  private sort( list: T[], key: any, direction: number ): T[] {
+    const isInside = key && key.indexOf('.') !== -1;
+
+    if ( isInside ) {
+      key = key.split('.');
+    }
+
+    const array: any[] = list.sort(( a: any, b: any ): number => {
+      if ( !key ) {
+        return a > b ? 1 : -1;
       }
-    })
+
+      if ( !isInside ) {
+        return a[ key ] > b[ key ] ? 1 : -1;
+      }
+
+      return this.getValue( a, key ) > this.getValue( b, key ) ? 1 : -1;
+    });
+
+    if ( direction === -1 ) {
+      return array.reverse();
+    }
+
+    return array;
+  }
+
+  private getValue( object: any, key: string[] ) {
+    for ( let i = 0, n = key.length; i < n; ++i ) {
+      const k = key[ i ];
+      if (!( k in object )) {
+        return;
+      }
+
+      object = object[ k ];
+    }
+
+    return object;
   }
 
 }
