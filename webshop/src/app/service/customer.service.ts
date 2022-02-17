@@ -34,4 +34,17 @@ export class CustomerService extends BaseService<Customer> {
       })
     );
   }
+
+  override getItem(id: number): Observable<Customer> {
+    return super.getItem(id).pipe(
+      map( customer => this.createAddress(customer) )
+    );
+  }
+
+  override updateItem(customer: Customer): Observable<Customer> {
+    return this.http.patch<Customer>(
+      `${this.apiFullUrl}/${customer.id}`,
+      customer
+    );
+  }
 }
