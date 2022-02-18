@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
@@ -13,12 +13,29 @@ import { Statistics } from 'src/app/service/statistics.service';
 export class ChartPieComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
-  @Input() statistics = new Observable<Statistics>();
+  @Input() statistics = new BehaviorSubject(new Statistics());
 
   @Input() chartdata: ChartData<'pie', number[], string | string[]> = {
     labels: [],
     datasets: [{ data: [] }],
   };
+
+  constructor() {
+    console.log('constructor', this.statistics);
+
+    this.statistics.subscribe((data) => {
+      console.log('DATA!: ', data);
+      console.log(this.chartdata);
+
+      let keyword = 'quantitiesByStatus';
+      this.chartdata.datasets[0].data.push(
+        data[keyword]['new'],
+        data[keyword]['paid'],
+        data[keyword]['shipped']
+      );
+      this.chart?.update();
+    });
+  }
 
   public pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -41,17 +58,5 @@ export class ChartPieComponent implements OnInit {
   public pieChartPlugins = [DatalabelsPlugin];
 
   ngOnInit(): void {
-    this.statistics.subscribe((data) => {
-      console.log(data);
-      console.log(this.chartdata);
-
-      let keyword = 'quantitiesByStatus';
-      this.chartdata.datasets[0].data.push (
-        data[keyword]['new'],
-        data[keyword]['paid'],
-        data[keyword]['shipped'],
-      );
-      this.chart?.update();
-    });
   }
 }

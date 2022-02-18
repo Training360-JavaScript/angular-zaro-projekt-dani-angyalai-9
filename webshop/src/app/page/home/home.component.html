@@ -1,4 +1,5 @@
-<!-- <p>{{ results | json }}</p> -->
+<p>{{ stat | json }}</p>
+<p>xx {{ stat['products'] | json }}</p>
 <br />
 <div class="container">
   <div class="row">
@@ -13,29 +14,30 @@
       <app-chart-spinner
         [itemName]="'active products'"
         [color]="'info'"
-        [activeItems]="(results['products'].results | async)?.activeItems"
-        [inactiveItems]="(results['products'].results | async)?.inactiveItems"
+        [activeItems]="getStatFor('products', 'activeItems')"
+        [inactiveItems]="getStatFor('products', 'inactiveItems')"
       ></app-chart-spinner>
     </div>
     <!-- <div class="col-md-3">
       <app-chart-spinner
         [itemName]="'active customers'"
         [color]="'info'"
-        [activeItems]="stats['customers'].activeItems"
-        [inactiveItems]="stats['customers'].inactiveItems"
+        [activeItems]="results['customers'].activeItems"
+        [inactiveItems]="results['customers'].inactiveItems"
       ></app-chart-spinner>
     </div> -->
     <!-- <div class="col-md-3">
       <app-chart-spinner
         [itemName]="'unpaid orders'"
         [color]="'warning'"
-        [activeItems]="stats['orders'].quantitiesByStatus.new"
+        [activeItems]="results['orders'].quantitiesByStatus.new"
         [inactiveItems]="
-          stats['orders'].quantitiesByStatus.paid +
-          stats['orders'].quantitiesByStatus.shipped
+          results['orders'].quantitiesByStatus.paid +
+          results['orders'].quantitiesByStatus.shipped
         "
       ></app-chart-spinner>
-    </div>
+    </div> -->
+     <!----
     <div class="col-md-3">
       <app-chart-spinner
         [itemName]="'&sum; of unpaid bills'"
@@ -57,13 +59,13 @@
     <div class="col-md-6">
       <app-chart-pie
         [chartdata]="InitialChartData"
-        [statistics]="this.results['orders'].results"
+        [statistics]="stat['orders']"
       ></app-chart-pie>
     </div>
     <div class="col-md-6">
       <app-chart-pie
         [chartdata]="InitialChartData"
-        [statistics]="this.results['bills'].results"
+        [statistics]="stat['bills']"
       ></app-chart-pie>
     </div>
   </div>

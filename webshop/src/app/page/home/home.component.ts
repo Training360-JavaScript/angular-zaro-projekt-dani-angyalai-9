@@ -5,7 +5,7 @@ import {
 } from 'src/app/service/statistics.service';
 
 class ChartDataClass {
-  // labels = [''];
+  labels = [''];
   datasets = [{ data: [0] }];
 }
 
@@ -14,26 +14,18 @@ class ChartDataClass {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
-  results = this.statisticsService.getStatistics();
-  stats: { [domain: string]: Statistics } = {};
+export class HomeComponent {
+  stat = this.statisticsService.getStatistics() as any;
   InitialChartData = new ChartDataClass();
 
-  constructor(private statisticsService: StatisticsService) {}
-
-  getStatisticsFor(domain: string) {
-    this.results[domain].results.subscribe((data) => {
-      this.stats[domain] = data;
-    });
-  }
-
-  ngOnInit(): void {
+  constructor(private statisticsService: StatisticsService) {
     this.InitialChartData = {
-      // labels: ['New', 'Paid', 'Shipped'],
+      labels: ['New', 'Paid', 'Shipped'],
       datasets: [{ data: [] }],
     };
-    Object.keys(this.statisticsService.domains).forEach((domain) => {
-      this.getStatisticsFor(domain);
-    });
+  }
+
+  getStatFor(domain: string, property: string) {
+    return this.stat[domain][property];
   }
 }

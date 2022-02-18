@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
+import { Injectable, OnInit } from '@angular/core';
+import { map, Observable, BehaviorSubject } from 'rxjs';
 import { Status } from '../model/status';
 import { BaseService } from './base.service';
 import { BillService } from './bill.service';
@@ -13,10 +13,7 @@ interface IDomainItem {
 }
 
 export interface IResult {
-  [domainName: string]: {
-    type: string;
-    results: Observable<Statistics>;
-  };
+  [domainName: string]: BehaviorSubject<Statistics>;
 }
 
 export class Statistics {
@@ -31,6 +28,7 @@ export class Statistics {
   providedIn: 'root',
 })
 export class StatisticsService {
+  private results: IResult = {};
   public domains: { [name: string]: IDomainItem } = {
     products: {
       provider: this.productService,
@@ -55,35 +53,40 @@ export class StatisticsService {
     private customerService: CustomerService,
     private orderService: OrderService,
     private billService: BillService
-  ) {}
-
-  public getStatistics() {
-    let results: IResult = {};
-    Object.entries(this.domains).forEach((domain) => {
-      results[domain[0]] = {
-        type: domain[1].type,
-        results: new Observable()
-      };
-      results[domain[0]].results = this.getData(domain[1]);
-    });
-    return results;
+  ) {
+    this.initStatistics();
   }
 
-  private getData(domain: IDomainItem) {
+  private initStatistics() {
+    Object.entries(this.domains).forEach((domain) => {
+      this.results[domain[0]] = new BehaviorSubject(new Statistics());
+    });
+    console.log(this.results);
+  }
+
+  public getStatistics() {
+    let content: IResult = {};
+    Object.entries(this.domains).forEach((domain) => {
+      this.getData(domain[1], (state: Statistics) =>
+        this.results[domain[0]].next(state)
+      );
+    });
+    return this.results;
+  }
+
+  private getData(domain: IDomainItem, updateSubject: Function) {
     let state = new Statistics();
-    return domain.provider.getAll().pipe(
-      map((items) => {
-        items.forEach((item) => {
-          if (item.hasOwnProperty('status')) {
-            state = this.checkStatus(item, state);
-          }
-          if (item.hasOwnProperty('active')) {
-            state = this.checkActiveState(item, state);
-          }
-        });
-        return state;
-      })
-    );
+    domain.provider.getAll().subscribe((items) => {
+      items.forEach((item) => {
+        if (item.hasOwnProperty('status')) {
+          state = this.checkStatus(item, state);
+        }
+        if (item.hasOwnProperty('active')) {
+          state = this.checkActiveState(item, state);
+        }
+      });
+      updateSubject(state);
+    });
   }
 
   private checkStatus(item: any, state: Statistics) {
