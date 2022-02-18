@@ -63,14 +63,14 @@
         </tr>
 
         <tr *ngIf="bills$ | async | filter: phrase : filterKey as bills">
-          <td colspan="2">Total amount:</td>
-          <td> {{ bills | sum:'amount'}} </td>
+          <td>Number of row: {{ bills.length }}</td>
+          <td>Total amount: {{ bills | sum:'amount'}} </td>
           <td colspan="2"></td>
         </tr>
       </tbody>
     </table>
 
-    <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white;">
+    <div *ngIf="isLoading">
       <mat-progress-spinner
         color="primary"
         mode="indeterminate">
