@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Order } from 'src/app/model/order';
 import { OrderService } from 'src/app/service/order.service';
 
+
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -11,6 +12,8 @@ import { OrderService } from 'src/app/service/order.service';
 })
 export class OrderComponent implements OnInit {
   orders$: Observable<Order[]> = this.orderService.getAll();
+  displayedColumns: string[] = ['customerID', 'productID', 'amount', 'status', 'actions'];
+  columnsToDisplay: string[] = this.displayedColumns.slice();
 
   sorterKey: string = 'id';
   sorterDirection: number = 1;
@@ -28,6 +31,18 @@ export class OrderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  addColumn() {
+    const randomColumn = Math.floor(Math.random() * this.displayedColumns.length);
+    this.columnsToDisplay.push(this.displayedColumns[randomColumn]);
+  }
+
+  removeColumn() {
+    const randomColumn = Math.floor(Math.random() * this.displayedColumns.length);
+    if (this.columnsToDisplay.length) {
+      this.columnsToDisplay.pop();
+    }
+  }
+
   onDelete(order: Order): void {
     this.orderService.deleteItem(order.id).subscribe(
       ar => this.router.navigate(['/', 'order'])
@@ -43,5 +58,6 @@ export class OrderComponent implements OnInit {
 
     this.sorterKey = key;
   }
+
 
 }
