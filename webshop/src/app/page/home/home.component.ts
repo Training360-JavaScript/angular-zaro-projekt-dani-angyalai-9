@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { StatisticsService } from 'src/app/service/statistics.service';
 
 @Component({
   selector: 'app-home',
@@ -7,17 +6,7 @@ import { StatisticsService } from 'src/app/service/statistics.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-
-  results = this.statisticsService.results as any;
-
-  constructor(
-    private statisticsService: StatisticsService
-  ) {
-    statisticsService.getStatistics()
-  }
-
-  onCounterReady() {
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 }

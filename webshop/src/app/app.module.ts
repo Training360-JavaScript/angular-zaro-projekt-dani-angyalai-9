@@ -12,9 +12,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatSelectModule} from '@angular/material/select';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,10 +33,13 @@ import { CustomerComponent } from './page/customer/customer.component';
 import { OrderComponent } from './page/order/order.component';
 import { BillComponent } from './page/bill/bill.component';
 
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { NgChartsModule } from 'ng2-charts';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { CountUpModule } from 'ngx-countup';
 import { SumPipe } from './pipe/sum.pipe';
+import { ChartSpinnerComponent } from './common/chart-spinner/chart-spinner.component';
+import { ChartPieComponent } from './common/chart-pie/chart-pie.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +58,8 @@ import { SumPipe } from './pipe/sum.pipe';
     OrderComponent,
     BillComponent,
     SumPipe,
+    ChartSpinnerComponent,
+    ChartPieComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,8 +67,6 @@ import { SumPipe } from './pipe/sum.pipe';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatProgressSpinnerModule,
-    CountUpModule,
     FlexLayoutModule,
     MatToolbarModule,
     MatSidenavModule,
@@ -74,6 +78,25 @@ import { SumPipe } from './pipe/sum.pipe';
     MatRadioModule,
     MatSelectModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
+
+    NgChartsModule,
+    NgCircleProgressModule.forRoot({
+      // defaults
+      radius: 100,
+      units: '',
+      unitsFontSize: '20',
+      unitsFontWeight: '2em',
+      outerStrokeWidth: 16,
+      innerStrokeWidth: 8,
+      outerStrokeColor: '#78C000',
+      innerStrokeColor: '#C7E596',
+      animation: true,
+      animationDuration: 700,
+      subtitleFontSize: '13',
+      subtitleFontWeight: '2em',
+      subtitleColor: 'black',
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
