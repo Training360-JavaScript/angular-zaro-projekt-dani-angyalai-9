@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
 import { Order } from 'src/app/model/order';
+import { MessagesService } from 'src/app/service/messages.service';
 import { OrderService } from 'src/app/service/order.service';
 
 @Component({
@@ -34,7 +35,8 @@ export class EditOrderComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private orderService: OrderService,
-    private router: Router
+    private router: Router,
+    private messageService: MessagesService
   ) { }
 
   ngOnInit(): void {
@@ -46,6 +48,8 @@ export class EditOrderComponent implements OnInit {
     if (order.id === 0) {
       this.isNewOrder = true;
       this.orderService.createItem(order).subscribe(
+        () => this.messageService.showSuccess('New order is added.'),
+        (error) => this.messageService.showError(),
         () => this.router.navigate(['/', 'order'])
         )
       }
@@ -53,6 +57,8 @@ export class EditOrderComponent implements OnInit {
       if (order.id !== 0 && !this.isNewOrder) {
         this.isNewOrder = false;
         this.orderService.updateItem(order).subscribe(
+          () => this.messageService.showSuccess('Update is successfull.'),
+          (error) => this.messageService.showError(),
           () => this.router.navigate(['/', 'order'])          
       )
     }

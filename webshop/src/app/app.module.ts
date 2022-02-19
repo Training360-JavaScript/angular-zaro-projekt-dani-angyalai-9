@@ -15,6 +15,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatInputModule} from '@angular/material/input';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,6 +38,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CountUpModule } from 'ngx-countup';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +55,7 @@ import { CountUpModule } from 'ngx-countup';
     CustomerComponent,
     OrderComponent,
     BillComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -72,6 +76,12 @@ import { CountUpModule } from 'ngx-countup';
     MatRadioModule,
     MatSelectModule,
     MatPaginatorModule,
+    MatInputModule, 
+    ToastrModule.forRoot({
+      timeOut: 4000,
+      positionClass: 'toast-bottom-full-width',
+      preventDuplicates: true,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

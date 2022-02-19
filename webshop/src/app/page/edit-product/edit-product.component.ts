@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
 import { Product } from 'src/app/model/product';
 import { ProductService } from 'src/app/service/product.service';
+import { MessagesService } from 'src/app/service/messages.service';
+
 
 @Component({
   selector: 'app-edit-product',
@@ -34,7 +36,8 @@ export class EditProductComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private messageService: MessagesService 
   ) { }
 
   ngOnInit(): void {
@@ -46,6 +49,8 @@ export class EditProductComponent implements OnInit {
     if (product.id === 0) {
       this.isNewProduct = true;
       this.productService.createItem(product).subscribe(
+        () => this.messageService.showSuccess('New product is added.'),
+        (error) => this.messageService.showError(),
         () => this.router.navigate(['/', 'product'])
         )
       }
@@ -53,11 +58,10 @@ export class EditProductComponent implements OnInit {
       if (product.id !== 0 && !this.isNewProduct) {
         this.isNewProduct = false;
         this.productService.updateItem(product).subscribe(
+          () => this.messageService.showSuccess('Update is successfull.'),
+          (error) => this.messageService.showError(),
           () => this.router.navigate(['/', 'product'])
-      )
-    }
-
+        )}
   }
 
 }
-
