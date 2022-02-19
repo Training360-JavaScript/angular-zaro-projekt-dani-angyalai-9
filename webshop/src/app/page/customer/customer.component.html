@@ -110,7 +110,18 @@
               aria-hidden="true"></i></button>
           </td>
         </tr>
+
+        <tr *ngIf="customers$ | async | filter: phrase : filterKey as customers">
+          <td>Number of row: {{ customers.length }}</td>
+
+        </tr>
       </tbody>
     </table>
+    <div *ngIf="isLoading">
+      <mat-progress-spinner
+        color="primary"
+        mode="indeterminate" class="mx-auto my-auto">
+      </mat-progress-spinner>
+    </div>
   </div>
 </div>

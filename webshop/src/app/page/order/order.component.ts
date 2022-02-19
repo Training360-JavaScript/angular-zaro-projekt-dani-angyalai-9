@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Order } from 'src/app/model/order';
 import { OrderService } from 'src/app/service/order.service';
 
+
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -11,6 +12,8 @@ import { OrderService } from 'src/app/service/order.service';
 })
 export class OrderComponent implements OnInit {
   orders$: Observable<Order[]> = this.orderService.getAll();
+  displayedColumns: string[] = ['customerID', 'productID', 'amount', 'status', 'actions'];
+  columnsToDisplay: string[] = this.displayedColumns.slice();
 
   sorterKey: string = 'id';
   sorterDirection: number = 1;
@@ -19,6 +22,8 @@ export class OrderComponent implements OnInit {
   filterKey: string = 'name';
   filterKeys: string[] = ['customerID', 'productID', 'amount', 'status'];
 
+  isLoading = true;
+
   constructor(
     private orderService: OrderService,
     private ar: ActivatedRoute,
@@ -26,6 +31,23 @@ export class OrderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.orderService.getAll()
+    .subscribe(
+     data => this.isLoading = false,
+     error => this.isLoading = false
+    );
+  }
+
+  addColumn() {
+    const randomColumn = Math.floor(Math.random() * this.displayedColumns.length);
+    this.columnsToDisplay.push(this.displayedColumns[randomColumn]);
+  }
+
+  removeColumn() {
+    const randomColumn = Math.floor(Math.random() * this.displayedColumns.length);
+    if (this.columnsToDisplay.length) {
+      this.columnsToDisplay.pop();
+    }
   }
 
   onDelete(order: Order): void {
@@ -43,5 +65,6 @@ export class OrderComponent implements OnInit {
 
     this.sorterKey = key;
   }
+
 
 }

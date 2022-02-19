@@ -29,6 +29,8 @@ export class CustomerComponent implements OnInit {
     active: 'active',
     featured: 'featured'};
 
+    isLoading = true;
+
   constructor(
     private customerService: CustomerService,
     private ar: ActivatedRoute,
@@ -36,6 +38,11 @@ export class CustomerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.customerService.getAll()
+    .subscribe(
+     data => this.isLoading = false,
+     error => this.isLoading = false
+    );
   }
   onDelete(customer: Customer): void {
     this.customerService.deleteItem(customer.id).subscribe(
