@@ -20,13 +20,21 @@ export class BillComponent implements OnInit {
   filterKey: string = 'name';
   filterKeys: string[] = ['orderID', 'amount', 'status'];
 
+  isLoading = true;
+
   constructor(
     private billService: BillService,
     private ar: ActivatedRoute,
     private router: Router,
   ) { }
 
-  ngOnInit(): void {
+
+  ngOnInit() {
+    this.billService.getAll()
+       .subscribe(
+        data => this.isLoading = false,
+        error => this.isLoading = false
+    );
   }
 
   onDelete(bill: Bill): void {
