@@ -1,9 +1,9 @@
-import { BehaviorSubject, Observable } from 'rxjs';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
-// import { Statistics } from 'src/app/service/statistics.service';
+import { BillService } from 'src/app/service/bill.service';
+import { LookupMethod, ValueType } from 'src/app/service/reportable.service';
 
 @Component({
   selector: 'app-chart-pie',
@@ -13,24 +13,31 @@ import { BaseChartDirective } from 'ng2-charts';
 export class ChartPieComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
-  @Input() chartdata: ChartData<'pie', number[], string | string[]> = {
+  @Input() dataset = [];
+
+  prodrep$ = this.billService.report({
+    key: 'active',
+    type: ValueType.Boolean,
+    method: LookupMethod.countTypes,
+  });
+
+  chartdata: ChartData<'pie', number[], string | string[]> = {
     labels: ['test-a', 'test-b', 'test-c'],
-    datasets: [{ data: [1, 1, 1] }],
+    datasets: [{ data: [] }],
   };
 
-  constructor() {
-    // console.log('constructor', this.statistics);
-    // this.statistics.subscribe((data) => {
-    //   console.log('DATA!: ', data);
-    //   console.log(this.chartdata);
-    //   let keyword = 'quantitiesByStatus';
-    //   this.chartdata.datasets[0].data.push(
-    //     data[keyword]['new'],
-    //     data[keyword]['paid'],
-    //     data[keyword]['shipped']
-    //   );
-    //   this.chart?.update();
-    // });
+  constructor(private billService: BillService) {
+    this.billService
+      .report({
+        key: 'active',
+        type: ValueType.Boolean,
+        method: LookupMethod.countTypes,
+      })
+      .subscribe((response) => {
+        console.log('CHART: ', response);
+        this.chartdata.datasets[0].data = [20, 30, 60];
+        this.chart?.update();
+      });
   }
 
   public pieChartOptions: ChartConfiguration['options'] = {

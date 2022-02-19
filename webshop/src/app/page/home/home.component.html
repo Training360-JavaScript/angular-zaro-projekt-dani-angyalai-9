@@ -1,3 +1,5 @@
+{{ prodrep$ | async}}
+
 <br />
 <div class="container">
   <div class="row">
@@ -9,16 +11,30 @@
 
   <div class="row">
     <div class="col-md-3">
-      <app-chart-spinner></app-chart-spinner>
+      <app-chart-spinner
+        [itemName]="'active products'"
+        [color]="'info'"
+        [activeItems]="prodrep$ | async"
+        [inactiveItems]="80"
+      ></app-chart-spinner>
     </div>
     <div class="col-md-3">
-      <app-chart-spinner></app-chart-spinner>
+      <app-chart-spinner
+        [itemName]="'active customers'"
+        [color]="'info'"
+      ></app-chart-spinner>
     </div>
     <div class="col-md-3">
-      <app-chart-spinner></app-chart-spinner>
+      <app-chart-spinner
+        [itemName]="'unpaid orders'"
+        [color]="'warning'"
+      ></app-chart-spinner>
     </div>
     <div class="col-md-3">
-      <app-chart-spinner></app-chart-spinner>
+      <app-chart-spinner
+        [itemName]="'&sum; of unpaid bills'"
+        [color]="'warning'"
+      ></app-chart-spinner>
     </div>
   </div>
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-chart-spinner',
@@ -10,8 +10,8 @@ export class ChartSpinnerComponent implements OnInit {
   @Input() color = 'info';
   @Input() unit = '';
 
-  @Input() activeItems: number | undefined;
-  @Input() inactiveItems: number | undefined;
+  @Input() activeItems: number | null = 0;
+  @Input() inactiveItems: number | null = 0;
 
   colors: { [key: string]: any } = {
     info: {
@@ -26,13 +26,6 @@ export class ChartSpinnerComponent implements OnInit {
 
   percent = 0;
 
-  constructor() {
-    if (this.activeItems && this.inactiveItems) {
-      this.percent =
-        (this.activeItems / (this.activeItems + this.inactiveItems)) * 100;
-    }
-  }
-
   formatTitle = (percent: number): string => {
     if (this.activeItems && this.inactiveItems) {
       return Math.floor(
@@ -41,5 +34,23 @@ export class ChartSpinnerComponent implements OnInit {
     } else return '';
   };
 
-  ngOnInit(): void {}
+  calculatePercent() {
+    if (this.activeItems && this.inactiveItems) {
+      this.percent =
+        (this.activeItems / (this.activeItems + this.inactiveItems)) * 100;
+    }
+    console.log(this.percent, this.activeItems, this.inactiveItems);
+  }
+
+  ngOnInit(): void {
+    this.calculatePercent();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['activeItems'])
+      this.activeItems = changes['activeItems'].currentValue;
+    if (changes['inactiveItems'])
+      this.inactiveItems = changes['inactiveItems'].currentValue;
+    this.calculatePercent();
+  }
 }
