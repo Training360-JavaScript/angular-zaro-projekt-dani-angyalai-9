@@ -14,7 +14,7 @@
 
 <div class="row">
   <div class="col-12">
-    <table class="table">
+    <table class="table table-striped">
       <thead>
         <tr>
           <th class="extra_thin" (click)="onSort('id')">
@@ -63,9 +63,8 @@
         </tr>
 
         <tr *ngIf="bills$ | async | filter: phrase : filterKey as bills">
-          <td>Number of row: {{ bills.length }}</td>
+          <td colspan="2">Number of row: {{ bills.length }}</td>
           <td>Total amount: {{ bills | sum:'amount'}} </td>
-          <td colspan="2"></td>
         </tr>
       </tbody>
     </table>

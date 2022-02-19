@@ -22,6 +22,8 @@ export class OrderComponent implements OnInit {
   filterKey: string = 'name';
   filterKeys: string[] = ['customerID', 'productID', 'amount', 'status'];
 
+  isLoading = true;
+
   constructor(
     private orderService: OrderService,
     private ar: ActivatedRoute,
@@ -29,6 +31,11 @@ export class OrderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.orderService.getAll()
+    .subscribe(
+     data => this.isLoading = false,
+     error => this.isLoading = false
+    );
   }
 
   addColumn() {

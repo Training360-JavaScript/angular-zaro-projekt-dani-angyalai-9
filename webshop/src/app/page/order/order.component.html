@@ -5,43 +5,90 @@
 <div class="search bg-light border rounded w-100 p-3 my-5 d-flex flex-md-row flex-column align-items-center">
   <span class="font-weight-bold text-uppercase text-center col-md-2 pt-2 ml-md-5">Search by:</span>
   <select class="form-control border col-3" [(ngModel)]="filterKey">
-    <option *ngFor="let key of filterKeys" [value]="[key]">{{key}}</option>
+    <option *ngFor="let key of filterKeys | keyvalue" [value]="[key.value]">{{key.key}}</option>
   </select>
   <input [(ngModel)]="phrase" class="filter-search border rounded col-5 mx-3" type="text" placeholder="Search...">
 </div>
 
 <div><h1>Orders</h1></div>
-<button mat-raised-button (click)="addColumn()"> Add column </button>
-<button mat-raised-button (click)="removeColumn()"> Remove column </button>
 
-<table mat-table [dataSource]="orders$ " class="mat-elevation-z8 col-12">
+<div class="row">
+  <div class="col-12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="extra_thin" (click)="onSort('id')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'id' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'id' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>#</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('customerID')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'customerID' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'customerID' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>customerID</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('productID')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'productID' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'productID' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>ProductID</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('amount')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'amount' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'amount' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>Amount</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('status')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'status' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'status' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>Status</span>
+            </div>
+          </th>
 
-  <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns" class="">
-    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-    <td mat-cell *matCellDef="let order">
-      <div *ngIf="column !== 'actions'; else actionBlock">
-        {{order[column]}}
-      </div>
-      <ng-template #actionBlock>
-        <button [routerLink]="['/', 'order', order.id]" class="btn btn-info">
-          <i class='fa fa-pencil'></i>
-        </button>
-        <button (click)="onDelete(order)" type="button" class="btn btn-danger"><i class="fa fa-trash"
-            aria-hidden="true"></i>
-        </button>
-      </ng-template>
-  </ng-container>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders$ | async | filter: phrase : filterKey | sorter: sorterKey : sorterDirection">
+          <td>{{ order.id }}</td>
+          <td>{{ order.customerID }}</td>
+          <td>{{ order.productID }}</td>
+          <td>{{ order.amount }}</td>
+          <td>{{ order.status}}</td>
 
-  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-  <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
-</table>
+          <td>
+            <button [routerLink]="['/', 'order', order.id]" class="btn btn-info">
+              <i class='fa fa-pencil'></i>
+            </button>
+            <button (click)="onDelete(order)" type="button" class="btn btn-danger"><i class="fa fa-trash"
+              aria-hidden="true"></i></button>
+          </td>
+        </tr>
 
-<mat-paginator [length]="100"
-              [pageSize]="10"
-              [pageSizeOptions]="[5, 10, 25, 100]"
-              aria-label="Select page">
-</mat-paginator>
-
+        <tr *ngIf="orders$ | async | filter: phrase : filterKey as orders">
+          <td>Number of row: {{ orders.length }}</td>
+          <td colspan="2"></td>
+          <td>Total amount: {{ orders | sum:'amount'}} </td>
+          <td colspan="2"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="isLoading">
+      <mat-progress-spinner
+        color="primary"
+        mode="indeterminate" class="mx-auto my-auto">
+      </mat-progress-spinner>
+    </div>
+  </div>
+</div>
 
 
 

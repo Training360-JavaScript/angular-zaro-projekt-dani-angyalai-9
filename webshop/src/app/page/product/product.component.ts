@@ -20,6 +20,7 @@ export class ProductComponent implements OnInit {
   filterKey: string = 'name';
   filterKeys: string[] = ['name', 'type', 'catID', 'description', 'price', 'featured', 'active'];
 
+  isLoading = true;
 
   constructor(
     private productService: ProductService,
@@ -27,7 +28,12 @@ export class ProductComponent implements OnInit {
     private router: Router,
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.productService.getAll()
+       .subscribe(
+        data => this.isLoading = false,
+        error => this.isLoading = false
+    );
   }
 
   onDelete(product: Product): void {
