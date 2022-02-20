@@ -1,5 +1,5 @@
 <div>
-  <button type="button" class="btn btn-success btn-block" [routerLink]="['/', 'customer', 0 ]">Add new customer</button>
+  <button type="button" mat-raised-button color="primary" class="btn btn-block" [routerLink]="['/', 'customer', 0 ]">Add new customer</button>
 </div>
 
 <div class="search bg-light border rounded w-100 p-3 my-5 d-flex flex-md-row flex-column align-items-center">
@@ -103,14 +103,29 @@
           <td>{{ customer.address.notes }}</td>
           <td>{{ customer.active }}</td>
           <td>
-            <button [routerLink]="['/', 'customer', customer.id]" class="btn btn-info">
+            <button [routerLink]="['/', 'customer', customer.id]" 
+            mat-raised-button color="primary"
+            class="btn">
               <i class='fa fa-pencil'></i>
             </button>
-            <button (click)="onDelete(customer)" type="button" class="btn btn-danger"><i class="fa fa-trash"
+            <button (click)="onDelete(customer)" type="button" 
+            mat-raised-button color="warn"
+            class="btn"><i class="fa fa-trash"
               aria-hidden="true"></i></button>
           </td>
         </tr>
+
+        <tr *ngIf="customers$ | async | filter: phrase : filterKey as customers">
+          <td>Number of row: {{ customers.length }}</td>
+
+        </tr>
       </tbody>
     </table>
+    <div *ngIf="isLoading">
+      <mat-progress-spinner
+        color="primary"
+        mode="indeterminate" class="mx-auto my-auto">
+      </mat-progress-spinner>
+    </div>
   </div>
 </div>

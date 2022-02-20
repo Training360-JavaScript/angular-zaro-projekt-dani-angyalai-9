@@ -2,44 +2,50 @@
     <div *ngIf="order$ | async as order" class="col-10 col-md-4 offset-1 offset-md-4">
         <form #orderForm="ngForm" (ngSubmit)="onUpdate(orderForm, order)">
             <div class="form-group">
-                <input [(ngModel)]="order['id']" type="hidden" name="id">
-                <label for="customerid">CustomerID</label>
-                <input  name="customerID" id="customerid" [(ngModel)]="order['customerID']"
-                type="text" class="form-control"
-                required pattern="^[1-9][0-9]*$">
-                <div [hidden]="orderForm.controls['customerID'].valid" class="error-message">
+                <input [(ngModel)]="order['id']" type="hidden" name="id" class="user-select-none">
+            </div>
+            <div>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>CustomerID</mat-label>
+                    <input matInput name="customerID" id="customerid" [(ngModel)]="order['customerID']"
+                    required pattern="^[1-9][0-9]*$">
+                </mat-form-field>    
+               <div [hidden]="orderForm.controls['customerID'].valid" class="error-message text-danger">
                     Please use only numbers.
                 </div>
             </div>
             <div class="form-group">
-                <label for="productid">ProductID</label>
-                <input name="productID" id="productid" [(ngModel)]="order['productID']"
-                type="text" class="form-control"
-                required pattern="^[1-9][0-9]*$">
-                <div [hidden]="orderForm.controls['productID'].valid" class="error-message">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>ProductID</mat-label>
+                    <input matInput name="productID" id="productid" [(ngModel)]="order['productID']"
+                    required pattern="^[1-9][0-9]*$">
+                </mat-form-field> 
+               <div [hidden]="orderForm.controls['productID'].valid" class="error-message text-danger">
                     Please use only numbers.
                 </div>
             </div>
             <div class="form-group">
-                <label for="amount">Amount</label>
-                <input name="amount" id="amount" [(ngModel)]="order['amount']"
-                type="text" class="form-control"
-                required pattern="^[1-9][0-9]*$">
-                <div [hidden]="orderForm.controls['amount'].valid" class="error-message">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Amount</mat-label>
+                    <input matInput name="amount" id="amount" [(ngModel)]="order['amount']"
+                    required pattern="^[1-9][0-9]*$">
+                </mat-form-field> 
+                <div [hidden]="orderForm.controls['amount'].valid" class="error-message text-danger">
                     Please use only numbers.
                 </div>
             </div>
             
             <div>
-                <mat-radio-group aria-label="Select an option" name="status" id="status" [(ngModel)]="order['status']">
+                <mat-radio-group aria-label="Select an option" name="status" id="status" 
+                [(ngModel)]="order['status']" required>
                     <mat-radio-button value="new">new</mat-radio-button>
                     <mat-radio-button class="ml-3" value="paid">paid</mat-radio-button>
                     <mat-radio-button class="ml-3" value="shipped">shipped</mat-radio-button>
                 </mat-radio-group>
             </div>
         
-            <button [disabled]="orderForm.invalid" type="submit" 
-            class="btn btn-primary btn-block btn-lg mt-3">
+            <button type="submit" 
+            mat-raised-button color="primary" class="btn btn-block btn-lg mt-3">
                 <i class="fa fa-save"></i>
             </button>
         </form>

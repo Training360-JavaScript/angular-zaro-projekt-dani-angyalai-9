@@ -1,11 +1,11 @@
 <div>
-  <button type="button" class="btn btn-success btn-block" [routerLink]="['/', 'order', 0 ]">Add new order</button>
+  <button type="button" mat-raised-button color="primary" class="btn btn-block" [routerLink]="['/', 'order', 0 ]">Add new order</button>
 </div>
 
 <div class="search bg-light border rounded w-100 p-3 my-5 d-flex flex-md-row flex-column align-items-center">
   <span class="font-weight-bold text-uppercase text-center col-md-2 pt-2 ml-md-5">Search by:</span>
   <select class="form-control border col-3" [(ngModel)]="filterKey">
-    <option *ngFor="let key of filterKeys" [value]="[key]">{{key}}</option>
+    <option *ngFor="let key of filterKeys | keyvalue" [value]="[key.value]">{{key.key}}</option>
   </select>
   <input [(ngModel)]="phrase" class="filter-search border rounded col-5 mx-3" type="text" placeholder="Search...">
 </div>
@@ -24,34 +24,35 @@
               <span>#</span>
             </div>
           </th>
-          <th class="thin" (click)="onSort('customerID')">
+          <th class="extra_thin" (click)="onSort('customerID')">
             <div class="th_center">
               <i *ngIf="sorterKey === 'customerID' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
               <i *ngIf="sorterKey === 'customerID' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
-              <span>CustomerID</span>
+              <span>customerID</span>
             </div>
           </th>
-          <th class="thin" (click)="onSort('productID')">
+          <th class="extra_thin" (click)="onSort('productID')">
             <div class="th_center">
               <i *ngIf="sorterKey === 'productID' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
               <i *ngIf="sorterKey === 'productID' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
               <span>ProductID</span>
             </div>
           </th>
-          <th class="thin" (click)="onSort('amount')">
+          <th class="extra_thin" (click)="onSort('amount')">
             <div class="th_center">
               <i *ngIf="sorterKey === 'amount' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
               <i *ngIf="sorterKey === 'amount' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
               <span>Amount</span>
             </div>
           </th>
-          <th class="thin" (click)="onSort('status')">
+          <th class="extra_thin" (click)="onSort('status')">
             <div class="th_center">
               <i *ngIf="sorterKey === 'status' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
               <i *ngIf="sorterKey === 'status' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
               <span>Status</span>
             </div>
           </th>
+
           <th></th>
         </tr>
       </thead>
@@ -61,17 +62,41 @@
           <td>{{ order.customerID }}</td>
           <td>{{ order.productID }}</td>
           <td>{{ order.amount }}</td>
-          <td>{{ order.status }}</td>
+          <td>{{ order.status}}</td>
+
           <td>
-            <button [routerLink]="['/', 'order', order.id]" class="btn btn-info">
+            <button [routerLink]="['/', 'order', order.id]" 
+            mat-raised-button color="primary" 
+            class="btn">
               <i class='fa fa-pencil'></i>
             </button>
-            <button (click)="onDelete(order)" type="button" class="btn btn-danger"><i class="fa fa-trash"
+            <button (click)="onDelete(order)" type="button"
+            mat-raised-button color="warn" 
+            class="btn"><i class="fa fa-trash"
                 aria-hidden="true"></i>
             </button>
           </td>
         </tr>
+
+        <tr *ngIf="orders$ | async | filter: phrase : filterKey as orders">
+          <td>Number of row: {{ orders.length }}</td>
+          <td colspan="2"></td>
+          <td>Total amount: {{ orders | sum:'amount'}} </td>
+          <td colspan="2"></td>
+        </tr>
       </tbody>
     </table>
+    <div *ngIf="isLoading">
+      <mat-progress-spinner
+        color="primary"
+        mode="indeterminate" class="mx-auto my-auto">
+      </mat-progress-spinner>
+    </div>
   </div>
 </div>
+
+
+
+
+
+

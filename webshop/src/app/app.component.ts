@@ -9,7 +9,6 @@ import { ConfigService } from './service/config.service';
 export class AppComponent {
   title = 'webshop';
 
-
   menuItems = this.config.menuItems;
 
   constructor(

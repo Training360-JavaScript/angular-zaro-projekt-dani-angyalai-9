@@ -1,5 +1,5 @@
 <div>
-  <button type="button" class="btn btn-success btn-block" [routerLink]="['/', 'product', 0 ]">Add new product</button>
+  <button type="button" mat-raised-button color="primary" class="btn btn-block" [routerLink]="['/', 'product', 0 ]">Add new product</button>
 </div>
 
 <div class="search bg-light border rounded w-100 p-3 my-5 d-flex flex-md-row flex-column align-items-center">
@@ -85,16 +85,28 @@
           <td>{{ product.featured }}</td>
           <td>{{ product.active }}</td>
           <td>
-            <button [routerLink]="['/', 'product', product.id]" class="btn btn-info">
+            <button [routerLink]="['/', 'product', product.id]" 
+            mat-raised-button color="primary"
+            class="btn">
               <i class='fa fa-pencil'></i>
             </button>
-            <button (click)="onDelete(product)" type="button" class="btn btn-danger"><i class="fa fa-trash"
+            <button (click)="onDelete(product)" type="button" 
+            mat-raised-button color="warn"
+            class="btn"><i class="fa fa-trash"
               aria-hidden="true"></i>
           </button>
           </td>
         </tr>
+        <tr *ngIf="products$ | async | filter: phrase : filterKey as products">
+          <td colspan="2">Number of row: {{ products.length }}</td>
+        </tr>
       </tbody>
     </table>
-
+    <div *ngIf="isLoading">
+      <mat-progress-spinner
+        color="primary"
+        mode="indeterminate" class="mx-auto my-auto">
+      </mat-progress-spinner>
+    </div>
   </div>
 </div>
