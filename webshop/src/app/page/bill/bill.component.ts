@@ -42,9 +42,11 @@ export class BillComponent implements OnInit {
   onDelete(bill: Bill): void {
     this.billService.deleteItem(bill.id).subscribe(
       () => this.messageService.showDelete(`Bill with ID: ${bill.id} has been deleted.`),
-      ar => this.router.navigate(['/', 'bill'])
+      ar => this.router.navigate(['/', 'bill']),
+      () => this.bills$ = this.billService.getAll(),
     );
   }
+
 
   onSort(key: string): void {
     if (key === this.sorterKey) {

@@ -55,7 +55,8 @@ export class OrderComponent implements OnInit {
   onDelete(order: Order): void {
     this.orderService.deleteItem(order.id).subscribe(
       () => this.messageService.showDelete(`Order with ID: ${order.id} has been deleted`),
-      ar => this.router.navigate(['/', 'order'])
+      ar => this.router.navigate(['/', 'order']),
+      () => this.orders$ = this.orderService.getAll(),
     );
   }
 

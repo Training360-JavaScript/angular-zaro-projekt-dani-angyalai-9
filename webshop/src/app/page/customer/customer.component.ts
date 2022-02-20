@@ -49,7 +49,8 @@ export class CustomerComponent implements OnInit {
   onDelete(customer: Customer): void {
     this.customerService.deleteItem(customer.id).subscribe(
       () => this.messageService.showDelete(`Customer with ID: ${customer.id} has been deleted`),
-      ar => this.router.navigate(['/', 'customer'])
+      ar => this.router.navigate(['/', 'customer']),
+      () => this.customers$ = this.customerService.getAll(),
     );
   }
 

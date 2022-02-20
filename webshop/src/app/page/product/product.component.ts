@@ -41,7 +41,8 @@ export class ProductComponent implements OnInit {
   onDelete(product: Product): void {
     this.productService.deleteItem(product.id).subscribe(
       () => this.messageService.showDelete(`Product with ID: ${product.id} has been deleted`),
-      ar => this.router.navigate(['/', 'product'])
+      ar => this.router.navigate(['/', 'product']),
+      () => this.products$ = this.productService.getAll(),
     );
   }
 
