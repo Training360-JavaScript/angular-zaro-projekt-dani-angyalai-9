@@ -19,7 +19,7 @@ export class MessagesService {
   };
 
   showDelete(message: string) {
-    this.toastr.info(message);
+    this.toastr.error(message);
   };
 }
 
