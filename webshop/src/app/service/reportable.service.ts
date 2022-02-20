@@ -1,6 +1,6 @@
 import { BaseService } from './base.service';
-import { Injectable } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
+import { Injectable, OnInit } from '@angular/core';
+import { BehaviorSubject, map, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 export enum LookupMethod {
@@ -9,14 +9,12 @@ export enum LookupMethod {
   sumBy,
 }
 
-export enum ValueType {
-  Boolean,
-  String,
+interface ValueTypes {
+  [key: string]: any;
 }
 
 export interface ILookupItem {
   key: string;
-  type?: ValueType;
   method: LookupMethod;
   by?: string;
 }
@@ -49,12 +47,14 @@ export class ReportableService<T> extends BaseService<any> {
   }
 
   public report(query: ILookupItem) {
-    let response = 0;
+    let response: ValueTypes = {};
+    console.log(this.apiFullUrl);
+
     return this.getAllCached().pipe(
       map((items) => {
         console.debug(items);
         if (query.method == LookupMethod.countTypes)
-          response = this.countTypes(items, query.key, query.type);
+          response = this.countTypes(items, query.key);
         if (query.method == LookupMethod.sumBy)
           response = this.sumBy(items, query.key, query.by);
         return response;
@@ -62,14 +62,25 @@ export class ReportableService<T> extends BaseService<any> {
     );
   }
 
-  private countTypes(items: any[], key: string, type: ValueType | undefined) {
-    // return { message: 'countTypes' };
-    return 20
+  private countTypes(items: any[], key: string) {
+    let valueTypes: ValueTypes = {};
+    items.forEach((item) => {
+      if (item.hasOwnProperty(key)) {
+        if (valueTypes.hasOwnProperty(key)) {
+          if (valueTypes[key].hasOwnProperty(item[key].toString())) {
+            valueTypes[key][item[key].toString()] += 1;
+          } else {
+            valueTypes[key][item[key].toString()] = 1;
+          }
+        } else valueTypes[key] = {};
+      }
+    });
+    return valueTypes;
     // return { labels: ['test-a', 'test-b', 'test-c'], datasers: [] };
   }
 
   private sumBy(items: any[], key: string, by: string | undefined) {
-    return 0
+    return {};
     // return { message: 'sumBy' };
   }
 
@@ -81,12 +92,6 @@ export class ReportableService<T> extends BaseService<any> {
   //     if (item.hasOwnProperty('amount') && item.status == key)
   //       state.amountsByStatus[key] += parseFloat(item.amount);
   //   });
-  //   return state;
-  // }
-
-  // private checkActiveState(item: any, state: Statistics) {
-  //   if (item.active) state.activeItems += 1;
-  //   else state.inactiveItems += 1;
   //   return state;
   // }
 }

@@ -10,8 +10,7 @@ export class ChartSpinnerComponent implements OnInit {
   @Input() color = 'info';
   @Input() unit = '';
 
-  @Input() activeItems: number | null = 0;
-  @Input() inactiveItems: number | null = 0;
+  @Input() dataPair: any[] | null = [0, 100];
 
   colors: { [key: string]: any } = {
     info: {
@@ -27,19 +26,17 @@ export class ChartSpinnerComponent implements OnInit {
   percent = 0;
 
   formatTitle = (percent: number): string => {
-    if (this.activeItems && this.inactiveItems) {
+    if (this.dataPair)
       return Math.floor(
-        ((this.activeItems + this.inactiveItems) * percent) / 100
+        ((this.dataPair[0] + this.dataPair[1]) * percent) / 100
       ).toString();
-    } else return '';
+    else return '';
   };
 
   calculatePercent() {
-    if (this.activeItems && this.inactiveItems) {
+    if (this.dataPair)
       this.percent =
-        (this.activeItems / (this.activeItems + this.inactiveItems)) * 100;
-    }
-    console.log(this.percent, this.activeItems, this.inactiveItems);
+        (this.dataPair[0] / (this.dataPair[0] + this.dataPair[1])) * 100;
   }
 
   ngOnInit(): void {
@@ -47,10 +44,7 @@ export class ChartSpinnerComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['activeItems'])
-      this.activeItems = changes['activeItems'].currentValue;
-    if (changes['inactiveItems'])
-      this.inactiveItems = changes['inactiveItems'].currentValue;
+    if (changes['dataPair']) this.dataPair = changes['dataPair'].currentValue;
     this.calculatePercent();
   }
 }
