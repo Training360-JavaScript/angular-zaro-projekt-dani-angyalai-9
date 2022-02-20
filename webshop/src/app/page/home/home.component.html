@@ -8,31 +8,32 @@
   </div>
 
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 d-flex justify-content-center">
       <app-chart-spinner
         [itemName]="'active products'"
         [color]="'info'"
         [dataPair]="activeProductsDataPair$ | async"
       ></app-chart-spinner>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3 d-flex justify-content-center">
       <app-chart-spinner
         [itemName]="'active customers'"
         [color]="'info'"
         [dataPair]="activeCustomersDataPair$ | async"
       ></app-chart-spinner>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3 mb-5- d-flex justify-content-center">
       <app-chart-spinner
         [itemName]="'unpaid orders'"
         [color]="'warning'"
         [dataPair]="unpaidOrderDataPair$ | async"
       ></app-chart-spinner>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3 d-flex justify-content-center">
       <app-chart-spinner
         [itemName]="'&sum; of unpaid bills'"
         [color]="'warning'"
+        [unit]="' Ft'"
         [dataPair]="unpaidBillAmountDataPair$ | async"
       ></app-chart-spinner>
     </div>
@@ -53,7 +54,7 @@
     </div>
     <div class="col-md-6">
       <app-chart-pie
-        [caption]="'total amounts of bills by status'"
+        [caption]="'total amount of bills by status'"
         [dataObject]="amountsByStatus$ | async"
       ></app-chart-pie>
     </div>
