@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Order } from 'src/app/model/order';
+import { MessagesService } from 'src/app/service/messages.service';
 import { OrderService } from 'src/app/service/order.service';
 
 
@@ -28,6 +29,7 @@ export class OrderComponent implements OnInit {
     private orderService: OrderService,
     private ar: ActivatedRoute,
     private router: Router,
+    private messageService: MessagesService,
   ) { }
 
   ngOnInit(): void {
@@ -52,6 +54,7 @@ export class OrderComponent implements OnInit {
 
   onDelete(order: Order): void {
     this.orderService.deleteItem(order.id).subscribe(
+      () => this.messageService.showDelete(`Order with ID: ${order.id} has been deleted`),
       ar => this.router.navigate(['/', 'order'])
     );
   }

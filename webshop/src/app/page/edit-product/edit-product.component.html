@@ -2,70 +2,67 @@
     <div *ngIf="(product$ | async) as product" class="col-10 col-md-4 offset-1 offset-md-4">
         <form #productForm="ngForm" (ngSubmit)="onUpdate(productForm, product)">
             <div class="form-group">
-                <input [(ngModel)]="product['id']" type="hidden" name="id">
-                <label for="name">Name</label>
-                <input name="name" id="name" [(ngModel)]="product['name']" type="text" class="form-control" required
-                    pattern="^[A-Za-z]{3,}[ ]?[-]?[ ]?.*$">
-                <div [hidden]="productForm.controls['name'].valid" class="error-message">
+                <input [(ngModel)]="product['id']" type="hidden" name="id" class="user-select-none">
+            </div>
+            <div>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Name</mat-label>
+                    <input matInput name="name" id="name" [(ngModel)]="product['name']"
+                    required pattern="^[A-Za-z]{3,}[ ]?[-]?[ ]?.*$">
+                </mat-form-field>
+                <div [hidden]="productForm.controls['name'].valid" class="error-message text-danger">
                     The name of the product must be min. 3 chars.
                 </div>
             </div>
             <div class="form-group">
-                <label for="type">Type</label>
-                <input name="type" id="type" [(ngModel)]="product['type']" type="text" class="form-control" required
-                    pattern=".{4,40}">
-                <div [hidden]="productForm.controls['type'].valid" class="error-message">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Type</mat-label>
+                    <input matInput name="type" id="type" [(ngModel)]="product['type']"
+                    required pattern="^.{4,40}$">
+                </mat-form-field>
+                <div [hidden]="productForm.controls['type'].valid" class="error-message  text-danger">
                     The type of the product must be min. 4, max 40 chars.
                 </div>
             </div>
             <div class="form-group">
-                <label for="catID">CatID</label>
-                <select name="catID" id="catID" [(ngModel)]="product['catID']" class="form-control" required>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
-                <div [hidden]="productForm.controls['catID'].valid" class="error-message">
+                <mat-form-field appearance="outline">
+                    <mat-label>Select one option</mat-label>
+                    <select matNativeControl [(ngModel)]="product['catID']" name="catID" required>
+                        <option value="" selected></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </mat-form-field>
+                <div [hidden]="productForm.controls['catID'].valid" class="error-message text-danger">
                     Please, select one option.
                 </div>
-               <!--  <div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Select an option</mat-label>
-                        <mat-select name="catID"  id="catID" [(ngModel)]="product['catID']" required>
-                            <mat-option value="1">1</mat-option>
-                            <mat-option value="2">2</mat-option>
-                            <mat-option value="3">3</mat-option>
-                            <mat-option value="4">4</mat-option>
-                            <mat-option value="5">5</mat-option>
-                            <mat-option value="6">6</mat-option>
-                            <mat-option value="7">7</mat-option>
-                            <mat-option value="8">8</mat-option>
-                            <mat-option value="9">9</mat-option>
-                            <mat-option value="10">10</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div> -->
             </div>
+
             <div class="form-group">
-                <label for="description">Description</label>
-                <input name="description" id="description" [(ngModel)]="product['description']" type="textarea"
-                    class="form-control" required pattern=".{10,}">
-                <div [hidden]="productForm.controls['description'].valid" class="error-message">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput name="description" id="description" [(ngModel)]="product['description']"
+                    required pattern="^.{10,300}$"></textarea>
+                </mat-form-field> 
+                <div [hidden]="productForm.controls['description'].valid" class="error-message text-danger">
                     The description of the product must be min. 10 chars.
                 </div>
             </div>
             <div class="form-group">
-                <label for="price">Price</label>
-                <input name="price" id="price" [(ngModel)]="product['price']" type="text" class="form-control" required
-                    pattern="^[0-9]*$">
-                <div [hidden]="productForm.controls['price'].valid" class="error-message">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Price</mat-label>
+                    <input matInput name="price" id="price" [(ngModel)]="product['price']"
+                    required pattern="^[0-9]*$">
+                </mat-form-field> 
+                <div [hidden]="productForm.controls['price'].valid" class="error-message text-danger">
                     Please, use only numbers.
                 </div>
             </div>
@@ -83,9 +80,10 @@
                 </mat-slide-toggle>
             </div>
 
-            <button [disabled]="productForm.invalid" type="submit" class="btn btn-primary btn-block btn-lg">
+            <button type="submit" mat-raised-button color="primary" class="btn btn-block btn-lg">
                 <i class="fa fa-save"></i>
             </button>
+
         </form>
     </div>
 </div>

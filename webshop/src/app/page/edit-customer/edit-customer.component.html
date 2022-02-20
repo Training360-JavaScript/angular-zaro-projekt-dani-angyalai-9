@@ -1,67 +1,78 @@
 <div class="row">
     <div *ngIf="customer$ | async as customer" class="col-10 col-md-4 offset-1 offset-md-4">
         <form #customerForm="ngForm" (ngSubmit)="onUpdate(customerForm, customer)">
-            <input [(ngModel)]="customer['id']" type="hidden" name="id">
+            <input [(ngModel)]="customer['id']" type="hidden" name="id" class="user-select-none">
             <div class="form-group">
-                <label for="firstname">Firstname</label>
-                <input name="firstName" id="firstname" [(ngModel)]="customer['firstName']"
-                type="text" class="form-control"
-                required pattern="^[A-Z][a-z]*$">
-                <div [hidden]="customerForm.controls['firstName'].valid" class="error-message">
+                <label class="d-block user-select-none" for="">Name</label>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Firstname</mat-label>
+                    <input matInput name="firstName" id="firstname" [(ngModel)]="customer['firstName']"
+                    required pattern="^[A-Z][a-z ]*$">
+                </mat-form-field>
+                <div [hidden]="customerForm.controls['firstName'].valid" class="error-message text-danger">
                   Please use only letters.
               </div>
             </div>
             <div class="form-group">
-              <label for="lastname">Lastname</label>
-                <input name="lastName" id="lastname" [(ngModel)]="customer['lastName']"
-                type="text"  class="form-control"
-                required pattern="^[A-Z][a-z]*$">
-                <div [hidden]="customerForm.controls['lastName'].valid" class="error-message">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Lastname</mat-label>
+                    <input matInput name="lastName" id="lastname" [(ngModel)]="customer['lastName']"
+                    required pattern="^[A-Z][a-z ]*$">
+                </mat-form-field>
+              <div [hidden]="customerForm.controls['lastName'].valid" class="error-message text-danger">
                     Please use only letters.
                 </div>
             </div>
             <div class="form-group">
-                <label for="email">Email</label>
-                <input name="email" id="email" [(ngModel)]="customer['email']"
-                type="email" email class="form-control"
-                required>
-                <div [hidden]="customerForm.controls['email'].valid" class="error-message">
+                <label class="d-block user-select-none" for="">Contact</label>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Email</mat-label>
+                    <input matInput name="email" id="email" [(ngModel)]="customer['email']"
+                    required>
+                </mat-form-field>
+                <div [hidden]="customerForm.controls['email'].valid" class="error-message text-danger">
                     Please use this sample: aaaaa@aaa or aaaaa@aaa.aa
                 </div>
             </div>
             <div class="form-group">
-                <label class="d-block" for="zip">Address</label>
-                <label for="zip">zip</label>
-                <input name="zip" id="zip" [(ngModel)]="customer.address.zip"
-                type="text"  class="form-control"
-                required pattern="^[0-9]{1,5}$">
-                <div [hidden]="customerForm.controls['zip'].valid" class="error-message">
+                <label class="d-block user-select-none" for="">Address</label>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Zip code</mat-label>
+                    <input matInput name="zip" id="zip" [(ngModel)]="customer['address']['zip']"
+                    required pattern="^[0-9]{1,5}$">
+                </mat-form-field>
+                <div [hidden]="customerForm.controls['zip'].valid" class="error-message text-danger">
                     Please use only numbers.
                 </div>
-                <label for="country">country</label>
-                <input name="country" id="country" [(ngModel)]="customer.address.country"
-                type="text"  class="form-control"
-                required pattern="^[A-Z][A-Za-z]*$">
-                <div [hidden]="customerForm.controls['country'].valid" class="error-message">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Country</mat-label>
+                    <input matInput name="country" id="country" [(ngModel)]="customer['address']['country']"
+                    required pattern="^[A-Z][a-zA-Z]*([ ][A-Za-z]*)*$">
+                </mat-form-field>
+                <div [hidden]="customerForm.controls['country'].valid" class="error-message text-danger">
                     Please use only letters.
                 </div>
-                <label for="city">city</label>
-                <input name="city" id="city" [(ngModel)]="customer.address.city"
-                type="text"  class="form-control"
-                required pattern="^[A-Z][a-z ]*[A-Za-z]*$">
-                <div [hidden]="customerForm.controls['city'].valid" class="error-message">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>City</mat-label>
+                    <input matInput name="city" id="city" [(ngModel)]="customer['address']['city']"
+                    required pattern="^[A-Z][a-z]*([ ][A-Za-z]*)*$">
+                </mat-form-field>
+                <div [hidden]="customerForm.controls['city'].valid" class="error-message text-danger">
                     Please use only letters.
                 </div>
-                <label for="street">street</label>
-                <input name="street" id="street" [(ngModel)]="customer.address.street"
-                type="text"  class="form-control"
-                required pattern="^[A-Z][a-z ]*[A-Za-z]*$">
-                <div [hidden]="customerForm.controls['street'].valid" class="error-message">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Street</mat-label>
+                    <input matInput name="street" id="street" [(ngModel)]="customer['address']['street']"
+                    required pattern="^[A-Z][a-z]*([ ][A-Za-z]*)*$">
+                </mat-form-field>
+                <div [hidden]="customerForm.controls['street'].valid" class="error-message text-danger">
                     Please use only letters.
                 </div>
-                <label for="notes">notes</label>
-                <input name="notes" id="notes" [(ngModel)]="customer.address.notes"
-                type="text"  class="form-control">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Notes</mat-label>
+                    <textarea matInput name="notes" id="notes" [(ngModel)]="customer['address']['notes']">
+                    </textarea>
+                </mat-form-field>
             </div>
             <div>
                 <mat-slide-toggle class="example-full-width mb-3" name="active" [(ngModel)]="customer['active']"
@@ -70,8 +81,9 @@
                 </mat-slide-toggle>
             </div>
             
-            <button [disabled]="customerForm.invalid" type="submit"
-            class="btn btn-primary btn-block btn-lg">
+            <button type="submit"
+            mat-raised-button color="primary"
+            class="btn btn-block btn-lg">
                 <i class="fa fa-save"></i>
             </button>
         </form>
