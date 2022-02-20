@@ -18,7 +18,6 @@ export class ChartPieComponent implements OnChanges {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
   @Input() dataObject = {};
-  @Input() ordinal = 0;
   @Input() caption = '';
 
   chartdata: ChartData<'pie', number[], string | string[]> = {

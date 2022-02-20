@@ -33,26 +33,29 @@
       <app-chart-spinner
         [itemName]="'&sum; of unpaid bills'"
         [color]="'warning'"
+        [dataPair]="unpaidBillAmountDataPair$ | async"
       ></app-chart-spinner>
     </div>
   </div>
 
   <div class="row mt-2">
     <div class="col-md-6">
-      <h2>Details</h2>
+      <h2 *ngIf="ordersByStatus$ | async">Details</h2>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-6">
       <app-chart-pie
-        [ordinal]="1"
         [caption]="'orders by status'"
         [dataObject]="ordersByStatus$ | async"
       ></app-chart-pie>
     </div>
     <div class="col-md-6">
-      <app-chart-pie></app-chart-pie>
+      <app-chart-pie
+        [caption]="'total amounts of bills by status'"
+        [dataObject]="amountsByStatus$ | async"
+      ></app-chart-pie>
     </div>
   </div>
 </div>

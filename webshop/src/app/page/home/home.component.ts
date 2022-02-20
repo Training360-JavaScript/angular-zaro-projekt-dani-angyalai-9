@@ -17,6 +17,12 @@ export class HomeComponent implements OnInit {
     method: LookupMethod.countTypes,
   });
 
+  billReport$ = this.billService.report({
+    key: 'amount',
+    method: LookupMethod.sumBy,
+    by: 'status',
+  });
+
   activeProductsDataPair$ = this.productService
     .report({
       key: 'active',
@@ -48,7 +54,15 @@ export class HomeComponent implements OnInit {
     ])
   );
 
+  unpaidBillAmountDataPair$ = this.billReport$.pipe(
+    map((response) => [response['status']['new'], response['status']['paid']])
+  );
+
   ordersByStatus$ = this.orderReport$.pipe(
+    map((response) => response['status'])
+  );
+
+  amountsByStatus$ = this.billReport$.pipe(
     map((response) => response['status'])
   );
 
@@ -57,30 +71,7 @@ export class HomeComponent implements OnInit {
     private customerService: CustomerService,
     private orderService: OrderService,
     private billService: BillService
-  ) {
-    // this.orderService
-    //   .report({
-    //     key: 'status',
-    //     method: LookupMethod.countTypes,
-    //   })
-    //   .subscribe((response) => console.log(response['status']['new']));
-    // this.billService
-    //   .report({
-    //     key: 'status',
-    //     type: ValueType.Boolean,
-    //     method: LookupMethod.countTypes,
-    //   })
-    //   .subscribe((response) => console.log('bill status types: ', response));
-    // this.billService
-    //   .report({
-    //     key: 'amount',
-    //     method: LookupMethod.sumBy,
-    //     by: 'status',
-    //   })
-    //   .subscribe((response) =>
-    //     console.log('total amount of unpaid bills: ', response)
-    //   );
-  }
+  ) {}
 
   ngOnInit(): void {}
 }

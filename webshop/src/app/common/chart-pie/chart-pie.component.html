@@ -1,5 +1,4 @@
-<div>
-  <div>
+  <div class="chart-container">
     <div class="chart">
       <canvas
         baseChart
@@ -10,8 +9,7 @@
       >
       </canvas>
     </div>
-    <h3>
-      fig.{{ ordinal }}: {{ caption }}
+    <h3 *ngIf="dataObject" class="text-center ml-5 pl-5">
+      {{ caption }}
     </h3>
   </div>
-</div>
