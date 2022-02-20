@@ -2,33 +2,39 @@
     <div  *ngIf="bill$ | async as bill" class="col-10 col-md-4 offset-1 offset-md-4">
         <form #billForm="ngForm" (ngSubmit)="onUpdate(billForm, bill)">
             <div class="form-group">
-                <input [(ngModel)]="bill['id']" type="hidden" name="id">
-                <label for="orderid">OrderID</label>
-                <input name="orderID" id="orderid" [(ngModel)]="bill['orderID']"
-                type="text" class="form-control"
-                required pattern="^[1-9][0-9]*$">
-                <div [hidden]="billForm.controls['orderID'].valid" class="error-message">
+                <input [(ngModel)]="bill['id']" type="hidden" name="id" class="user-select-none">
+            </div>   
+            <div class="form-group">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>OrderID</mat-label>
+                    <input matInput name="orderID" id="orderid" [(ngModel)]="bill['orderID']"
+                    required pattern="^[1-9][0-9]*$">
+                </mat-form-field>
+                <div [hidden]="billForm.controls['orderID'].valid" class="error-message text-danger">
                     Please use only numbers.
                 </div>
             </div>
             <div class="form-group">
-                <label for="amount">Amount</label>
-                <input name="amount" id="amount" [(ngModel)]="bill['amount']"
-                type="text" class="form-control"
-                required pattern="^[1-9][0-9]*$">
-                <div [hidden]="billForm.controls['amount'].valid" class="error-message">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Amount</mat-label>
+                    <input matInput name="amount" id="amount" [(ngModel)]="bill['amount']"
+                    required pattern="^[1-9][0-9]*$">
+                  </mat-form-field>
+                <div [hidden]="billForm.controls['amount'].valid" class="error-message text-danger">
                     Please use only numbers.
                 </div>
             </div>
             <div>
-                <mat-radio-group aria-label="Select an option" name="status" id="status" [(ngModel)]="bill['status']">
+                <mat-radio-group aria-label="Select an option" name="status" id="status" 
+                [(ngModel)]="bill['status']" required>
                     <mat-radio-button value="new">new</mat-radio-button>
                     <mat-radio-button class="ml-3" value="paid">paid</mat-radio-button>
                 </mat-radio-group>
             </div>
 
-            <button [disabled]="billForm.invalid" type="submit" 
-            class="btn btn-primary btn-block btn-lg mt-3">
+            <button type="submit"
+            mat-raised-button color="primary"
+            class="btn btn-block btn-lg mt-3">
                 <i class="fa fa-save"></i>
             </button>
         </form>

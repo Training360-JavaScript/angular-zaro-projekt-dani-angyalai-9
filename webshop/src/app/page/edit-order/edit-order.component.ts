@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
 import { Order } from 'src/app/model/order';
+import { MessagesService } from 'src/app/service/messages.service';
 import { OrderService } from 'src/app/service/order.service';
 
 @Component({
@@ -13,9 +14,9 @@ import { OrderService } from 'src/app/service/order.service';
 export class EditOrderComponent implements OnInit {
 
   order$: Observable<Order> = this.activatedRoute.params.pipe(
-    switchMap( params => {
-      let orderFromList$: Observable<Order> = 
-      this.orderService.getItem(params['id']);
+    switchMap(params => {
+      let orderFromList$: Observable<Order> =
+        this.orderService.getItem(params['id']);
 
       if (params['id'] === '0') {
         this.newOrder$.subscribe();
@@ -34,7 +35,8 @@ export class EditOrderComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private orderService: OrderService,
-    private router: Router
+    private router: Router,
+    private messageService: MessagesService
   ) { }
 
   ngOnInit(): void {
@@ -43,17 +45,25 @@ export class EditOrderComponent implements OnInit {
   private isNewOrder: boolean = false;
 
   onUpdate(orderForm: NgForm, order: Order): void {
-    if (order.id === 0) {
+    if (orderForm.invalid) {
+      this.messageService.showError()
+    }
+
+    else if (order.id === 0) {
       this.isNewOrder = true;
       this.orderService.createItem(order).subscribe(
+        () => this.messageService.showSuccess('New order is added.'),
+        (error) => this.messageService.showError(),
         () => this.router.navigate(['/', 'order'])
-        )
-      }
-      
-      if (order.id !== 0 && !this.isNewOrder) {
-        this.isNewOrder = false;
-        this.orderService.updateItem(order).subscribe(
-          () => this.router.navigate(['/', 'order'])          
+      )
+    }
+
+    else if (order.id !== 0 && !this.isNewOrder) {
+      this.isNewOrder = false;
+      this.orderService.updateItem(order).subscribe(
+        () => this.messageService.showSuccess('Update is successfull.'),
+        (error) => this.messageService.showError(),
+        () => this.router.navigate(['/', 'order'])
       )
     }
 
