@@ -1,9 +1,8 @@
- import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
 import { Bill } from 'src/app/model/bill';
-import { Customer } from 'src/app/model/customer';
 import { BillService } from 'src/app/service/bill.service';
 import { MessagesService } from 'src/app/service/messages.service';
 
@@ -15,13 +14,13 @@ import { MessagesService } from 'src/app/service/messages.service';
 export class EditBillComponent implements OnInit {
 
   bill$: Observable<Bill> = this.activatedRoute.params.pipe(
-    switchMap( params => {
+    switchMap(params => {
       let billFromList$: Observable<Bill> =
-      this.billservice.getItem(params['id']);
+        this.billservice.getItem(params['id']);
 
       if (params['id'] === '0') {
-      this.newBill$.subscribe();
-      return this.newBill$;
+        this.newBill$.subscribe();
+        return this.newBill$;
       }
 
       billFromList$.subscribe()
@@ -46,7 +45,11 @@ export class EditBillComponent implements OnInit {
   private isNewBill: boolean = false;
 
   onUpdate(billForm: NgForm, bill: Bill): void {
-    if (bill.id === 0) {
+    if (billForm.invalid) {
+      this.messageService.showError()
+    }
+
+    else if (bill.id === 0) {
       this.isNewBill = true;
       this.billservice.createItem(bill).subscribe(
         () => this.messageService.showSuccess('New item is added.'),
@@ -55,7 +58,7 @@ export class EditBillComponent implements OnInit {
       )
     }
 
-    if (bill.id !== 0 && !this.isNewBill) {
+    else if (bill.id !== 0 && !this.isNewBill) {
       this.billservice.updateItem(bill).subscribe(
         () => this.messageService.showSuccess('Update is successfull.'),
         (error) => this.messageService.showError(),
@@ -63,5 +66,4 @@ export class EditBillComponent implements OnInit {
       )
     }
   }
-
 }

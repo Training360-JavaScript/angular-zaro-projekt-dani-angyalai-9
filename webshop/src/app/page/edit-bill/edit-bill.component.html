@@ -21,13 +21,14 @@
                 </div>
             </div>
             <div>
-                <mat-radio-group aria-label="Select an option" name="status" id="status" [(ngModel)]="bill['status']">
+                <mat-radio-group aria-label="Select an option" name="status" id="status" 
+                [(ngModel)]="bill['status']" required>
                     <mat-radio-button value="new">new</mat-radio-button>
                     <mat-radio-button class="ml-3" value="paid">paid</mat-radio-button>
                 </mat-radio-group>
             </div>
 
-            <button [disabled]="billForm.invalid" type="submit" 
+            <button type="submit"
             mat-raised-button color="primary"
             class="btn btn-block btn-lg mt-3">
                 <i class="fa fa-save"></i>

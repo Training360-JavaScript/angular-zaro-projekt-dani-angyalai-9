@@ -11,11 +11,15 @@ export class MessagesService {
   ) { }
 
   showError() {
-    this.toastr.error('Error');
+    this.toastr.error('Error! Please check your input data.');
   };
   
   showSuccess(message: string) {
-    this.toastr.success(message);
+    this.toastr.info(message);
+  };
+
+  showDelete(message: string) {
+    this.toastr.info(message);
   };
 }
 

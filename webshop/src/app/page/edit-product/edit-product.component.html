@@ -51,8 +51,8 @@
             </div>
             <div class="form-group">
                 <label for="price">Price</label>
-                <input name="price" id="price" [(ngModel)]="product['price']" type="text" class="form-control" required
-                    pattern="^[0-9]*$">
+                <input name="price" id="price" [(ngModel)]="product['price']" type="text" class="form-control"
+                required pattern="^[0-9]*$">
                 <div [hidden]="productForm.controls['price'].valid" class="error-message text-danger">
                     Please, use only numbers.
                 </div>
@@ -71,7 +71,7 @@
                 </mat-slide-toggle>
             </div>
 
-            <button [disabled]="productForm.invalid" type="submit" 
+            <button type="submit" 
             mat-raised-button color="primary"
             class="btn btn-block btn-lg">
                 <i class="fa fa-save"></i>

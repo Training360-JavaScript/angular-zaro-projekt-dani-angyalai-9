@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Bill } from 'src/app/model/bill';
 import { BillService } from 'src/app/service/bill.service';
+import { MessagesService } from 'src/app/service/messages.service';
 
 @Component({
   selector: 'app-bill',
@@ -24,6 +25,7 @@ export class BillComponent implements OnInit {
     private billService: BillService,
     private ar: ActivatedRoute,
     private router: Router,
+    private messageService: MessagesService,
   ) { }
 
   ngOnInit(): void {
@@ -31,6 +33,7 @@ export class BillComponent implements OnInit {
 
   onDelete(bill: Bill): void {
     this.billService.deleteItem(bill.id).subscribe(
+      () => this.messageService.showDelete(`Bill with ID: ${bill.id} has been deleted.`),
       ar => this.router.navigate(['/', 'bill'])
     );
   }

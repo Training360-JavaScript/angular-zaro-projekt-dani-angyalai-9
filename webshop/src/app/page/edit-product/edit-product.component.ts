@@ -15,9 +15,9 @@ import { MessagesService } from 'src/app/service/messages.service';
 export class EditProductComponent implements OnInit {
 
   product$: Observable<Product> = this.activatedRoute.params.pipe(
-    switchMap( params => {
+    switchMap(params => {
       let productFromList$: Observable<Product> =
-      this.productService.getItem(params['id']);
+        this.productService.getItem(params['id']);
 
       if (params['id'] === '0') {
         this.newProduct$.subscribe();
@@ -37,7 +37,7 @@ export class EditProductComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private productService: ProductService,
     private router: Router,
-    private messageService: MessagesService 
+    private messageService: MessagesService
   ) { }
 
   ngOnInit(): void {
@@ -46,22 +46,27 @@ export class EditProductComponent implements OnInit {
   private isNewProduct: boolean = false;
 
   onUpdate(productForm: NgForm, product: Product): void {
-    if (product.id === 0) {
+    if (productForm.invalid) {
+      this.messageService.showError()
+    }
+
+    else if (product.id === 0) {
       this.isNewProduct = true;
       this.productService.createItem(product).subscribe(
         () => this.messageService.showSuccess('New product is added.'),
         (error) => this.messageService.showError(),
         () => this.router.navigate(['/', 'product'])
-        )
-      }
+      )
+    }
 
-      if (product.id !== 0 && !this.isNewProduct) {
-        this.isNewProduct = false;
-        this.productService.updateItem(product).subscribe(
-          () => this.messageService.showSuccess('Update is successfull.'),
-          (error) => this.messageService.showError(),
-          () => this.router.navigate(['/', 'product'])
-        )}
+    else if (product.id !== 0 && !this.isNewProduct) {
+      this.isNewProduct = false;
+      this.productService.updateItem(product).subscribe(
+        () => this.messageService.showSuccess('Update is successfull.'),
+        (error) => this.messageService.showError(),
+        () => this.router.navigate(['/', 'product'])
+      )
+    }
   }
 
 }

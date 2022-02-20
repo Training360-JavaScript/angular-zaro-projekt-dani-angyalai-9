@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Customer } from 'src/app/model/customer';
 import { CustomerService } from 'src/app/service/customer.service';
+import { MessagesService } from 'src/app/service/messages.service';
 
 @Component({
   selector: 'app-customer',
@@ -33,12 +34,14 @@ export class CustomerComponent implements OnInit {
     private customerService: CustomerService,
     private ar: ActivatedRoute,
     private router: Router,
+    private messageService: MessagesService,
   ) { }
 
   ngOnInit(): void {
   }
   onDelete(customer: Customer): void {
     this.customerService.deleteItem(customer.id).subscribe(
+      () => this.messageService.showDelete(`Customer with ID: ${customer.id} has been deleted`),
       ar => this.router.navigate(['/', 'customer'])
     );
   }
