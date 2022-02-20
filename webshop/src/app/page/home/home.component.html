@@ -1,35 +1,61 @@
-<h1><strong>Dashboard</strong></h1>
+<br />
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h1><strong>Dashboard</strong></h1>
+      <h2>Overview</h2>
+    </div>
+  </div>
 
-<!-- <p>{{ results | json }}</p> -->
-<!-- <mat-progress-spinner value="100" mode="determinate"> </mat-progress-spinner> -->
+  <div class="row">
+    <div class="col-md-3">
+      <app-chart-spinner
+        [itemName]="'active products'"
+        [color]="'info'"
+        [dataPair]="activeProductsDataPair$ | async"
+      ></app-chart-spinner>
+    </div>
+    <div class="col-md-3">
+      <app-chart-spinner
+        [itemName]="'active customers'"
+        [color]="'info'"
+        [dataPair]="activeCustomersDataPair$ | async"
+      ></app-chart-spinner>
+    </div>
+    <div class="col-md-3">
+      <app-chart-spinner
+        [itemName]="'unpaid orders'"
+        [color]="'warning'"
+        [dataPair]="unpaidOrderDataPair$ | async"
+      ></app-chart-spinner>
+    </div>
+    <div class="col-md-3">
+      <app-chart-spinner
+        [itemName]="'&sum; of unpaid bills'"
+        [color]="'warning'"
+        [dataPair]="unpaidBillAmountDataPair$ | async"
+      ></app-chart-spinner>
+    </div>
+  </div>
 
-<br>
-<div class="row">
-  <div class="col-12">
-    <h2>
-      <span>Active products: </span>
-      <span [countUp]="results['products'].results?.activeItems"> 0 </span>
-    </h2>
+  <div class="row mt-2">
+    <div class="col-md-6">
+      <h2 *ngIf="ordersByStatus$ | async">Details</h2>
+    </div>
   </div>
-  <div class="col-12">
-    <h2>
-      <span>Active customers: </span>
-      <span [countUp]="results['customers'].results?.activeItems"> 0 </span>
-    </h2>
-  </div>
-  <div class="col-12">
-    <h2>
-      <span>Unpaid orders: </span>
-      <span [countUp]="results['orders'].results?.quantitiesByStatus.new">
-        0
-      </span>
-    </h2>
-  </div>
-  <div class="col-12">
-    <h2>
-      <span>Total amount of unpaid bills: </span>
-      <span [countUp]="results['bills'].results?.amountsByStatus.new"> 0 </span>
-      Ft
-    </h2>
+
+  <div class="row">
+    <div class="col-md-6">
+      <app-chart-pie
+        [caption]="'orders by status'"
+        [dataObject]="ordersByStatus$ | async"
+      ></app-chart-pie>
+    </div>
+    <div class="col-md-6">
+      <app-chart-pie
+        [caption]="'total amounts of bills by status'"
+        [dataObject]="amountsByStatus$ | async"
+      ></app-chart-pie>
+    </div>
   </div>
 </div>

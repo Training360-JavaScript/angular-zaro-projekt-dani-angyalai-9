@@ -1,0 +1,15 @@
+  <div class="chart-container">
+    <div class="chart">
+      <canvas
+        baseChart
+        [data]="chartdata"
+        [type]="pieChartType"
+        [options]="pieChartOptions"
+        [plugins]="pieChartPlugins"
+      >
+      </canvas>
+    </div>
+    <h3 *ngIf="dataObject" class="text-center ml-5 pl-5">
+      {{ caption }}
+    </h3>
+  </div>
