@@ -65,6 +65,7 @@ export class CustomerComponent implements OnInit {
       this.sorterDirection = 1;
     }
     this.sorterKey = key;
+    this.customers$ = this.customerService.getAll();
   }
 
   onChangePage(pe:PageEvent) {

@@ -58,6 +58,7 @@ export class ProductComponent implements OnInit {
     }
 
     this.sorterKey = key;
+    this.products$ = this.productService.getAll();
   }
 
   onChangePage(pe:PageEvent) {
