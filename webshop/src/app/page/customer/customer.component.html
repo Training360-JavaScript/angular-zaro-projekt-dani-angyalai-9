@@ -1,0 +1,143 @@
+<div>
+  <button type="button" mat-raised-button color="primary" class="btn btn-block" [routerLink]="['/', 'customer', 0 ]">Add new customer</button>
+</div>
+
+<div class="search bg-light border rounded w-100 p-3 my-5 d-flex flex-md-row flex-column align-items-center">
+  <span class="font-weight-bold text-uppercase text-center col-md-2 pt-2 ml-md-5">Search by:</span>
+  <select class="form-control border col-3" [(ngModel)]="filterKey">
+    <option *ngFor="let key of filterKeys | keyvalue" [value]="[key.value]">{{key.key}}</option>
+  </select>
+  <input [(ngModel)]="phrase" class="filter-search border rounded col-5 mx-3" type="text" placeholder="Search...">
+</div>
+
+<div><h1>Customers</h1></div>
+
+<div class="row">
+  <div class="col-12">
+    <table class="table table-striped text-center">
+      <thead>
+        <tr>
+          <th class="extra_thin" (click)="onSort('id')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'id' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'id' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>#</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('firstName')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'firstName' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'firstName' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>Firstname</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('lastName')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'lastName' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'lastName' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>Lastname</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('email')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'email' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'email' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>Email</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('address.zip')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'address.zip' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'address.zip' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>Addresszip</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('address.country')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'address.country' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'address.country' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>Country</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('address.city')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'address.city' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'address.city' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>City</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('address.street')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'address.street' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'address.street' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>Street</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('address.notes')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'address.notes' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'address.notes' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>Notes</span>
+            </div>
+          </th>
+          <th class="extra_thin" (click)="onSort('active')">
+            <div class="th_center">
+              <i *ngIf="sorterKey === 'active' && sorterDirection === 1" class="fa fa-sort-alpha-asc mr-2"></i>
+              <i *ngIf="sorterKey === 'active' && sorterDirection === -1" class="fa fa-sort-alpha-desc mr-2"></i>
+              <span>Active</span>
+            </div>
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of customers$ | async | filter: phrase : filterKey | sorter: sorterKey : sorterDirection | paginator: pageIndex : pageSize">
+          <td>{{ customer.id }}</td>
+          <td>{{ customer.firstName }}</td>
+          <td>{{ customer.lastName }}</td>
+          <td>{{ customer.email }}</td>
+          <td>{{ customer.address.zip }}</td>
+          <td>{{ customer.address.country}}</td>
+          <td>{{ customer.address.city }}</td>
+          <td>{{ customer.address.street }}</td>
+          <td>{{ customer.address.notes }}</td>
+          <td>{{ customer.active }}</td>
+          <td>
+            <button [routerLink]="['/', 'customer', customer.id]"
+            mat-raised-button color="primary"
+            class="btn">
+              <i class='fa fa-pencil'></i>
+            </button>
+            <button (click)="onDelete(customer)" type="button"
+            mat-raised-button color="warn"
+            class="btn"><i class="fa fa-trash"
+              aria-hidden="true"></i></button>
+          </td>
+        </tr>
+
+        <tr *ngIf="customers$ | async | filter: phrase : filterKey as customers">
+          <td>Number of row: {{ customers.length }}</td>
+
+        </tr>
+      </tbody>
+    </table>
+
+    <div  *ngIf="customers$ | async | filter: phrase : filterKey as customers">
+      <mat-paginator #paginator
+            showFirstLastButtons
+            (page)="onChangePage($event)"
+            [length]= customers.length
+            [pageSize]="10"
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            aria-label="Select page">
+      </mat-paginator>
+    </div>
+
+    <div *ngIf="isLoading">
+      <mat-progress-spinner
+        color="primary"
+        mode="indeterminate" class="mx-auto my-auto">
+      </mat-progress-spinner>
+    </div>
+  </div>
+</div>

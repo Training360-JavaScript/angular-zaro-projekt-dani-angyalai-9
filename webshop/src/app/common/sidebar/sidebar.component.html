@@ -1,18 +1,33 @@
-<div class="sidebar" data-color="purple" data-background-color="white">
+
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+      <a
+        *ngFor="let item of menuItems"
+        [routerLink] = "item.url"
+        routerLinkActive = "active"
+        [routerLinkActiveOptions]="{exact: item.url === '/'}"
+        mat-list-item>
+        <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
+        {{ item.text }}
+      </a>
+      <a (click)="sidenav.toggle()" mat-list-item><mat-icon>keyboard_arrow_left</mat-icon> Close</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+
+
+<!-- <nav class="menu" tabindex="0">
+  <div class="smartphone-menu-trigger"></div>
   <div class="logo">
-    <a routerLink="/" class="simple-text logo-mini">
-      Webshop
+    <a routerLink="/" class="">
+      <img src="../../../assets/img/daniels-angels.jpg" alt="shop logo">
     </a>
   </div>
-  <div class="sidebar-wrapper">
-    <ul class="nav">
-      <li class="nav-item active  ">
-        <a class="nav-link" href="#0">
-          <i class="material-icons">dashboard</i>
-          <p>Dashboard</p>
-        </a>
-      </li>
-      <!-- your sidebar here -->
-    </ul>
-  </div>
-</div>
+	<ul>
+    <li routerLink="home" tabindex="0" class="icon-dashboard"><span>Dashboard</span></li>
+    <li routerLink="product" class="icon-products"><span>Products</span></li>
+    <li routerLink="customer" class="icon-customers"><span>Customers</span></li>
+    <li routerLink="order" class="icon-orders"><span>Orders</span></li>
+    <li routerLink="bill" class="icon-bills"><span>Bills</span></li>
+  </ul>
+</nav> -->
