@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Customer } from 'src/app/model/customer';
@@ -32,6 +33,9 @@ export class CustomerComponent implements OnInit {
 
     isLoading = true;
 
+    pageIndex: number = 0;
+    pageSize: number = 10;
+
   constructor(
     private customerService: CustomerService,
     private ar: ActivatedRoute,
@@ -61,6 +65,11 @@ export class CustomerComponent implements OnInit {
       this.sorterDirection = 1;
     }
     this.sorterKey = key;
+  }
+
+  onChangePage(pe:PageEvent) {
+    this.pageIndex = pe.pageIndex;
+    this.pageSize = pe.pageSize;
   }
 
 }

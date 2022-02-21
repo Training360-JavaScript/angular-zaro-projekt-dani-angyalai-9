@@ -13,7 +13,6 @@ export class FilterPipe<T extends { [key: string]: any }> implements PipeTransfo
     phrase = phrase.toLowerCase();
 
     const isInside = key && key.indexOf('.') !== -1;
-    console.log(key);
 
     if ( isInside ) {
       key = key.split('.');
@@ -32,7 +31,6 @@ export class FilterPipe<T extends { [key: string]: any }> implements PipeTransfo
       }
 
       const data = String( this.getValue( item, key ) ).toLowerCase();
-      console.log(data);
       return data.includes( phrase );
 
     });
