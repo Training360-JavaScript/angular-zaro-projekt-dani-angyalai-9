@@ -75,6 +75,7 @@
     </table>
     <div  *ngIf="bills$ | async | filter: phrase : filterKey as bills">
       <mat-paginator #paginator
+            showFirstLastButtons
             (page)="onChangePage($event)"
             [length]= bills.length
             [pageSize]="10"

@@ -89,6 +89,7 @@
 
     <div  *ngIf="orders$ | async | filter: phrase : filterKey as orders">
       <mat-paginator #paginator
+            showFirstLastButtons
             (page)="onChangePage($event)"
             [length]= orders.length
             [pageSize]="10"
