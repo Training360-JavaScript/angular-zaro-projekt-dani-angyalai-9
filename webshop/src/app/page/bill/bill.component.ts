@@ -60,6 +60,7 @@ export class BillComponent implements OnInit {
       this.sorterDirection = 1;
     }
     this.sorterKey = key;
+    this.bills$ = this.billService.getAll();
   }
 
   onChangePage(pe:PageEvent) {
