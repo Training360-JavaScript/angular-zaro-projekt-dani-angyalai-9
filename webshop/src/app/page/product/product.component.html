@@ -105,6 +105,7 @@
 
     <div  *ngIf="products$ | async | filter: phrase : filterKey as products">
       <mat-paginator #paginator
+            showFirstLastButtons
             (page)="onChangePage($event)"
             [length]= products.length
             [pageSize]="10"
