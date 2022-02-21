@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Order } from 'src/app/model/order';
@@ -24,6 +25,9 @@ export class OrderComponent implements OnInit {
   filterKeys: string[] = ['customerID', 'productID', 'amount', 'status'];
 
   isLoading = true;
+
+  pageIndex: number = 0;
+  pageSize: number = 10;
 
   constructor(
     private orderService: OrderService,
@@ -70,5 +74,9 @@ export class OrderComponent implements OnInit {
     this.sorterKey = key;
   }
 
+  onChangePage(pe:PageEvent) {
+    this.pageIndex = pe.pageIndex;
+    this.pageSize = pe.pageSize;
+  }
 
 }

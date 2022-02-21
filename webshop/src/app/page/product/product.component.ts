@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/model/product';
@@ -22,6 +23,9 @@ export class ProductComponent implements OnInit {
   filterKeys: string[] = ['name', 'type', 'catID', 'description', 'price', 'featured', 'active'];
 
   isLoading = true;
+
+  pageIndex: number = 0;
+  pageSize: number = 10;
 
   constructor(
     private productService: ProductService,
@@ -54,6 +58,11 @@ export class ProductComponent implements OnInit {
     }
 
     this.sorterKey = key;
+  }
+
+  onChangePage(pe:PageEvent) {
+    this.pageIndex = pe.pageIndex;
+    this.pageSize = pe.pageSize;
   }
 
 }

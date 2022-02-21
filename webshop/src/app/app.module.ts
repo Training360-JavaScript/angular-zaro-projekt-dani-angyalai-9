@@ -44,6 +44,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SumPipe } from './pipe/sum.pipe';
 import { ChartSpinnerComponent } from './common/chart-spinner/chart-spinner.component';
 import { ChartPieComponent } from './common/chart-pie/chart-pie.component';
+import { PaginatorPipe } from './pipe/paginator.pipe';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { ChartPieComponent } from './common/chart-pie/chart-pie.component';
     SumPipe,
     ChartSpinnerComponent,
     ChartPieComponent,
+    PaginatorPipe,
   ],
   imports: [
     BrowserModule,
