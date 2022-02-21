@@ -12,7 +12,7 @@
 <div><h1>Products</h1></div>
 <div class="row">
   <div class="col-12">
-    <table class="table table-striped">
+    <table class="table table-striped  text-center">
       <thead>
         <tr>
             <th class="extra_thin" (click)="onSort('id')">
@@ -75,7 +75,7 @@
         </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let product of products$ | async | filter: phrase : filterKey | sorter: sorterKey : sorterDirection">
+      <tr *ngFor="let product of products$ | async | filter: phrase : filterKey | sorter: sorterKey : sorterDirection | paginator: pageIndex : pageSize">
           <td>{{ product.id }}</td>
           <td>{{ product.name }}</td>
           <td>{{ product.type }}</td>
@@ -85,12 +85,12 @@
           <td>{{ product.featured }}</td>
           <td>{{ product.active }}</td>
           <td>
-            <button [routerLink]="['/', 'product', product.id]" 
+            <button [routerLink]="['/', 'product', product.id]"
             mat-raised-button color="primary"
             class="btn">
               <i class='fa fa-pencil'></i>
             </button>
-            <button (click)="onDelete(product)" type="button" 
+            <button (click)="onDelete(product)" type="button"
             mat-raised-button color="warn"
             class="btn"><i class="fa fa-trash"
               aria-hidden="true"></i>
@@ -102,6 +102,17 @@
         </tr>
       </tbody>
     </table>
+
+    <div  *ngIf="products$ | async | filter: phrase : filterKey as products">
+      <mat-paginator #paginator
+            (page)="onChangePage($event)"
+            [length]= products.length
+            [pageSize]="10"
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            aria-label="Select page">
+      </mat-paginator>
+    </div>
+
     <div *ngIf="isLoading">
       <mat-progress-spinner
         color="primary"

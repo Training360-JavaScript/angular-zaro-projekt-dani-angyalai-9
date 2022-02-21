@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Bill } from 'src/app/model/bill';
@@ -14,14 +15,18 @@ export class BillComponent implements OnInit {
 
   bills$: Observable<Bill[]> = this.billService.getAll();
 
+  phrase: string = '';
+  filterKey: string = '';
+  filterKeys: string[] = ['orderID', 'amount', 'status'];
+
   sorterKey: string = 'id';
   sorterDirection: number = 1;
 
-  phrase: string = '';
-  filterKey: string = 'name';
-  filterKeys: string[] = ['orderID', 'amount', 'status'];
-
   isLoading = true;
+
+  pageIndex: number = 0;
+  pageSize: number = 10;
+
 
   constructor(
     private billService: BillService,
@@ -55,6 +60,11 @@ export class BillComponent implements OnInit {
       this.sorterDirection = 1;
     }
     this.sorterKey = key;
+  }
+
+  onChangePage(pe:PageEvent) {
+    this.pageIndex = pe.pageIndex;
+    this.pageSize = pe.pageSize;
   }
 
 }
