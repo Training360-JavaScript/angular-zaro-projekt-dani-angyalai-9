@@ -72,6 +72,7 @@ export class OrderComponent implements OnInit {
     }
 
     this.sorterKey = key;
+    this.orders$ = this.orderService.getAll();
   }
 
   onChangePage(pe:PageEvent) {
